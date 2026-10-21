@@ -1,0 +1,28 @@
+// ชุดข้อมูลเดียวกันสำหรับทุกหน้า อ้างอิง MOCKUP-PAGES.md ข้อ 6
+export const brand = Object.freeze({name:'ขนมบ้านสวน',owner:'คุณแพร',location:'อ.สามพราน จ.นครปฐม',date:'22 ตุลาคม 2026',dateISO:'2026-10-22',tone:'เป็นกันเอง อบอุ่น',commentsRead:1284,reviewsRead:312});
+export const metrics = Object.freeze({complaints:23,complaintGrowth:340,previousComplaintAverage:5.2,revenue:48200,previousRevenue:58900,revenueChange:-18,orders:513,rating:4.5,previousRating:4.8,butterRevenue:22000,previousButterRevenue:32400,butterChange:-32,otherRevenue:26200,previousOtherRevenue:26500,carrierShare:91,videoViews:48000,festivalDays:20});
+export const categories = Object.freeze({urgent:{label:'ต้องตอบด่วน',icon:'flame',color:'red'},drama:{label:'เสี่ยงดราม่า',icon:'alert',color:'maroon'},idea:{label:'ไอเดียสินค้า',icon:'bulb',color:'blue'},praise:{label:'คำชม',icon:'star',color:'gold'},intent:{label:'อยากซื้อ',icon:'target',color:'green'},competitor:{label:'พูดถึงคู่แข่ง',icon:'eye',color:'pink'}});
+export const platforms = Object.freeze({shopee:{name:'Shopee',letter:'S',className:'shopee'},tiktok:{name:'TikTok',letter:'♪',className:'tiktok'},facebook:{name:'Facebook',letter:'f',className:'facebook'},instagram:{name:'Instagram',letter:'◎',className:'instagram'},youtube:{name:'YouTube',letter:'▶',className:'youtube'}});
+export const comments = Object.freeze([
+ {id:1,platform:'shopee',user:'ปุ๊ก***',text:'ทองม้วนแตกหมดเลยค่ะ กล่องบุบมาทั้งด้าน เสียดายมาก',category:'urgent',likes:12,time:'2 ชม.',topic:'แพ็กเกจ',issue:'packaging'},
+ {id:2,platform:'tiktok',user:'@กินไปเรื่อยกับมิ้นท์',text:'กล่องยับมาก ข้างในแตกเป็นผง แต่รสชาติคือดีนะ',category:'drama',likes:'3.1k',time:'4 วัน',topic:'แพ็กเกจ',issue:'packaging',video:true},
+ {id:3,platform:'shopee',user:'nat***',text:'สั่งครั้งที่ 3 ครั้งนี้แตกเกินครึ่ง จะสั่งอีกไหมเนี่ย',category:'urgent',likes:8,time:'5 ชม.',topic:'แพ็กเกจ',issue:'packaging'},
+ {id:4,platform:'facebook',user:'สมศ***',text:'ส่งช้ากว่าเดิมมากค่ะ ปกติ 2 วันได้ ครั้งนี้ 5 วัน',category:'urgent',likes:4,time:'1 วัน',topic:'การจัดส่ง',issue:'delivery'},
+ {id:5,platform:'tiktok',user:'jj***',text:'ซื้อที่ไหนคะ อยากลอง',category:'intent',likes:41,time:'3 วัน',topic:'ช่องทางซื้อ'},
+ {id:6,platform:'instagram',user:'mew***',text:'ทำรสทุเรียนได้ไหมคะ จะซื้อเป็นของฝาก',category:'idea',likes:56,time:'6 วัน',topic:'สินค้าใหม่',issue:'durian'},
+ {id:7,platform:'facebook',user:'ป้าแดง***',text:'กรอบ หอมเนย ไม่อมน้ำมัน ซื้อให้หลานกินทุกเดือน',category:'praise',likes:23,time:'1 วัน',topic:'รสชาติ'},
+ {id:8,platform:'shopee',user:'bank***',text:'ของแม่ศรีกล่องดีกว่า ไม่เคยแตกเลย',category:'competitor',likes:6,time:'2 วัน',topic:'คู่แข่ง',issue:'packaging'},
+ {id:9,platform:'youtube',user:'Kanok***',text:'ดูคลิปทำขนมแล้วอยากไปซื้อที่ร้านเลย มีหน้าร้านไหมครับ',category:'intent',likes:9,time:'3 วัน',topic:'ช่องทางซื้อ'},
+ {id:10,platform:'shopee',user:'fon***',text:'รสชาติดีเหมือนเดิม แต่แพ็กเกจแย่ลง',category:'urgent',likes:5,time:'8 ชม.',topic:'แพ็กเกจ',issue:'packaging'},
+ {id:11,platform:'instagram',user:'lin***',text:'ชุดของขวัญน่ารักมาก ปีใหม่จะสั่ง 10 กล่อง',category:'praise',likes:18,time:'5 วัน',topic:'ชุดของขวัญ'},
+ {id:12,platform:'facebook',user:'ต่อ***',text:'กล้วยตากหวานไปนิดนึงครับ',category:'idea',likes:2,time:'9 วัน',topic:'รสชาติ',issue:'sweet'}
+]);
+export const issues = Object.freeze([
+ {id:'packaging',title:'กล่องบุบ ทองม้วนแตก',subtitle:'คำบ่นเพิ่มขึ้นหลังเปลี่ยนเจ้าขนส่ง',severity:'critical',count:23,period:'7 วัน',growth:'+340%',platforms:['shopee','tiktok','facebook'],start:'16 ต.ค. 2026',trend:[9,9,12,16,25,36,53]},
+ {id:'delivery',title:'ส่งช้ากว่าเดิม',subtitle:'ขนส่ง B ใช้เวลาเฉลี่ย 4 วัน จากเดิม 2 วัน',severity:'medium',count:9,period:'7 วัน',platforms:['facebook'],trend:[9,12,10,17,19,24,28]},
+ {id:'sweet',title:'กล้วยตากหวานเกินไป',subtitle:'เสียงลูกค้าเกี่ยวกับรสชาติกล้วยตากอบน้ำผึ้ง',severity:'low',count:4,period:'30 วัน',platforms:['facebook'],trend:[16,13,15,12,14,11,12]},
+ {id:'durian',title:'ลูกค้าขอรสทุเรียน',subtitle:'โอกาสสินค้าใหม่ · มีคนกดไลก์รวม 230',severity:'opportunity',count:15,period:'30 วัน',platforms:['instagram'],trend:[8,12,14,19,23,29,34]}
+]);
+export const products = Object.freeze([{id:'butter',name:'ทองม้วนกรอบ รสเนยสด',size:'กระปุก 150 กรัม',price:89},{id:'sesame',name:'ทองม้วนกรอบ รสงาดำ',size:'กระปุก 150 กรัม',price:89},{id:'banana',name:'กล้วยตากอบน้ำผึ้ง',size:'ถุง 200 กรัม',price:69},{id:'rice',name:'ข้าวแต๋นน้ำแตงโม',size:'ถุง 10 ชิ้น',price:59},{id:'gift',name:'ชุดของขวัญขนมไทย',size:'กล่องรวม 4 อย่าง',price:390}]);
+export const replyDraft='ขอโทษคุณลูกค้ามาก ๆ เลยค่ะ 🙏 บ้านสวนเพิ่งเปลี่ยนขนส่ง แล้วกล่องไม่แข็งแรงพอ ตอนนี้เปลี่ยนเป็นกล่อง 2 ชั้นแล้วนะคะ ขอส่งคูปองลด ฿20 ให้ใช้ครั้งหน้าค่ะ หวังว่าจะได้ดูแลคุณลูกค้าอีกครั้งนะคะ';
+export const navigation = Object.freeze([{id:'today',label:'สรุปวันนี้',page:5},{id:'issues',label:'ปัญหา',page:6},{id:'comments',label:'คอมเมนต์',page:9},{id:'sales',label:'ยอดขายและรีวิว',page:11},{id:'festivals',label:'เทศกาล',page:13},{id:'ai',label:'ถาม AI',page:15},{id:'settings',label:'ตั้งค่า',page:17}]);

@@ -1,0 +1,19 @@
+# Local secrets and machine files
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db
+.codex/
+
+# Local dependencies and generated output
+node_modules/
+dist/
+coverage/
+*.zip
+
+# Unused source-reference phone images; BrandCare uses its shop logo only
+assets/images/foldable__iybtpzlhgj6u_large.jpg
+assets/images/iphone_18_pro__bmrykxup0dqu_large_2x.jpg
+assets/images/iphone_duo__btr0pf6i74r6_large_2x.jpg

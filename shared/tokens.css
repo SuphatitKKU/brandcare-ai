@@ -1,0 +1,28 @@
+:root {
+  --bc-font: "SF Pro TH", "SF Pro Text", sans-serif;
+  --bc-font-number: "SF Pro Display", "SF Pro TH", sans-serif;
+  --bc-bg: #f5f5f7;
+  --bc-surface: #fff;
+  --bc-ink: #1d1d1f;
+  --bc-secondary: #6e6e73;
+  --bc-muted: #86868b;
+  --bc-line: #e8e8ed;
+  --bc-blue: #0071e3;
+  --bc-action: #0071e3;
+  --bc-action-hover: #0077ed;
+  --bc-brand-soft: #edf5ff;
+  --bc-focus: #0071e3;
+  --bc-blue-soft: #edf5ff;
+  --bc-green: #24834b;
+  --bc-red: #cf4545;
+  --bc-radius-card: 26px;
+  --bc-radius-control: 14px;
+  --bc-radius-pill: 999px;
+  --bc-shadow: 0 12px 40px #1d1d1f08;
+  --bc-ease: cubic-bezier(.22, 1, .36, 1);
+  --bc-motion-fast: 180ms;
+  --bc-motion-medium: 420ms;
+  --bc-motion-reveal: 720ms;
+  --bc-content: 1320px;
+  --bc-gutter: 40px;
+}
