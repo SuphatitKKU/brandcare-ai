@@ -4,7 +4,7 @@
 
 ## เปิดดู
 
-- `npm run dev` ใน `D:\token-free`
+- `npm run dev` จากโฟลเดอร์หลักของโปรเจกต์ (โฟลเดอร์ที่มี `package.json`)
 - Dashboard รวม: http://localhost:4174/#/today
 - ตัวอย่างคอมโพเนนต์: http://localhost:4174/#/components
 
