@@ -18,7 +18,7 @@
 | หน้า | งาน | ผู้รับผิดชอบ | สถานะ | หลักฐาน / หมายเหตุ |
 |---|---|---|---|---|
 | 1 | ยินดีต้อนรับ / Login | ภูมิ | เสร็จ / merged | [PR #2](https://github.com/SuphatitKKU/brandcare-ai/pull/2), [PR #3](https://github.com/SuphatitKKU/brandcare-ai/pull/3) · `#/login` |
-| 2 | ตั้งค่าแบรนด์ | ภูมิ | พร้อม merge | `#/brand-setup` · ฟอร์มข้อมูลร้านและสไตล์ผู้ช่วย AI |
+| 2 | ตั้งค่าแบรนด์ | ภูมิ | เสร็จ / merged | [PR #4](https://github.com/SuphatitKKU/brandcare-ai/pull/4) · `#/brand-setup` |
 | 3 | เชื่อมต่อข้อมูล | ภูมิ | จุดเชื่อมต่อ | `#/connect-data` · ยังไม่มี flow เชื่อมบัญชี |
 | 4 | กำลังวิเคราะห์ | ภูมิ | ยังไม่พัฒนา | ยังไม่มี flow วิเคราะห์ |
 | 5 | สรุปวันนี้ | B | เสร็จ / merged | `#/today` · ชุดตั้งต้น commit `ef31c7e` |
@@ -88,7 +88,9 @@
 
 ## งานที่ 2 ของภูมิ — ตั้งค่าแบรนด์และผู้ช่วย AI
 
-**สถานะ: UI เสร็จ พร้อม merge จาก `feat/phum-brand-setup`**
+**สถานะ: เสร็จและ merge เข้า `main` แล้ว**
+
+หลักฐาน: [PR #4](https://github.com/SuphatitKKU/brandcare-ai/pull/4) · commit สุดท้าย `808e6c2` · 23 ตุลาคม 2026 (Asia/Bangkok) · branch `feat/phum-brand-setup`
 
 ### ขอบเขตที่ทำเสร็จ
 
@@ -109,6 +111,8 @@
 - ตรวจการพับ–ขยายสรุปบนมือถือ 320 / 390px และยืนยันเดสก์ท็อปยังแสดงสรุปเต็ม
 - ตรวจ validation, เพิ่ม/ลบรายการ, เปลี่ยนสไตล์, อัปโหลดรูป, บันทึก/โหลดฉบับร่าง, Settings edit และเส้นทางถัดไปแล้ว
 - ตรวจ syntax ของ `app.js`, `brand-setup.js`, `login.js` และ `git diff --check` ผ่าน
+- ตรวจซ้ำหลัง rebase: validation ไม่เริ่มโหลดเมื่อข้อมูลไม่ครบ, spinner / disabled แสดงก่อนเปลี่ยนไป `#/connect-data` และไม่พบ conflict กับ `main` ฐาน `138b01d`
+- PR #4 ไม่มี checks รายงาน และ repository ไม่มี CI workflow ใช้ผลตรวจในเครื่องประกอบการ merge
 - ตรวจผ่าน browser viewport จำลอง ยังไม่ใช่ผลทดสอบมือถือจริง
 
 ### งานที่ยังไม่รวม
