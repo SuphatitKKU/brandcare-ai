@@ -13,9 +13,10 @@ export function loginPage(){
      <button type="button" data-action="login-mode" data-mode="signin" aria-pressed="true">เข้าสู่ระบบ</button>
      <button type="button" data-action="login-mode" data-mode="signup" aria-pressed="false">สมัครสมาชิก</button>
     </div>
-    <form id="bc-login-form" class="bc-login-form">
-     <label class="bc-login-input"><span class="bc-sr-only">อีเมล</span><input id="bc-login-address" type="email" placeholder="อีเมลของคุณ" autocomplete="off" required maxlength="254">${icon('message')}</label>
-     <label class="bc-login-input"><span class="bc-sr-only">รหัสผ่าน</span><input id="bc-login-password" type="password" placeholder="รหัสผ่านของคุณ" autocomplete="off" required maxlength="128"><button type="button" data-action="login-password" aria-label="แสดงรหัสผ่าน" aria-pressed="false">${icon('eye')}</button></label>
+    <form id="bc-login-form" class="bc-login-form" novalidate>
+     <p id="bc-login-validation" class="bc-sr-only" aria-live="polite" aria-atomic="true"></p>
+     <div class="bc-login-field"><label class="bc-login-input"><span class="bc-sr-only">อีเมล</span><input id="bc-login-address" type="email" placeholder="อีเมลของคุณ" autocomplete="off" required maxlength="254">${icon('message')}</label><p class="bc-login-error" id="bc-login-address-error" hidden>${icon('alert')}<span></span></p></div>
+     <div class="bc-login-field"><label class="bc-login-input"><span class="bc-sr-only">รหัสผ่าน</span><input id="bc-login-password" type="password" placeholder="รหัสผ่านของคุณ" autocomplete="off" required maxlength="128"><button type="button" data-action="login-password" aria-label="แสดงรหัสผ่าน" aria-pressed="false">${icon('eye')}</button></label><p class="bc-login-error" id="bc-login-password-error" hidden>${icon('alert')}<span></span></p></div>
      <div class="bc-login-options"><label><input type="checkbox" id="bc-login-remember">จดจำฉัน</label><button type="button" data-action="login-forgot">ลืมรหัสผ่าน?</button></div>
      <button class="bc-button bc-button--primary bc-login-submit" type="submit">เข้าสู่ระบบ</button>
     </form>
