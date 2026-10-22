@@ -71,7 +71,7 @@ export function mountBrandSetup(root){
  window.addEventListener('resize',()=>{if(categoryOpen())placeCategoryMenu();},{signal:dropdownEvents.signal});
  window.visualViewport?.addEventListener('resize',()=>{if(categoryOpen())placeCategoryMenu();},{signal:dropdownEvents.signal});
  window.addEventListener('scroll',event=>{if(categoryOpen()&&!categoryMenu.contains(event.target))placeCategoryMenu();},{capture:true,signal:dropdownEvents.signal});
- let uploading=false;
+ let uploading=false,submitting=false,nextStepTimer;
  let voiceText='',thinkingTimer,streamFrame;
  let bubbleAnimations=[];
  const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
@@ -107,7 +107,7 @@ export function mountBrandSetup(root){
  }
  function drawChips(key){find(`[data-chip-list="${key}"]`).innerHTML=state[key].map((v,i)=>`<span class="bc-setup-chip">${esc(v)}<button type="button" data-chip-remove="${key}" data-index="${i}" aria-label="ลบ ${esc(v)}">${icon('close')}</button></span>`).join('');}
  function addChip(key){const input=find(`[data-chip-input="${key}"]`),value=input.value.trim();if(!value)return true;if(state[key].includes(value)){setError(key,'มีรายการนี้แล้ว');return false;}if(state[key].length>=12){setError(key,'เพิ่มได้สูงสุด 12 รายการ');return false;}state[key].push(value);input.value='';setError(key,'');drawChips(key);sync();status('เพิ่มรายการแล้ว · ยังไม่ได้บันทึก');return true;}
- function save(){try{localStorage.setItem(storageKey,JSON.stringify(state));status('บันทึกฉบับร่างในเบราว์เซอร์นี้แล้ว');toast('บันทึกฉบับร่างในเบราว์เซอร์นี้แล้ว');return true;}catch{status('บันทึกไม่ได้ เบราว์เซอร์ไม่อนุญาตให้เก็บข้อมูล กรุณาเปิดการจัดเก็บข้อมูลแล้วลองอีกครั้ง');toast('บันทึกไม่ได้ กรุณาตรวจการอนุญาตจัดเก็บข้อมูลของเบราว์เซอร์');return false;}}
+ function save(notify=true){try{localStorage.setItem(storageKey,JSON.stringify(state));status('บันทึกฉบับร่างในเบราว์เซอร์นี้แล้ว');if(notify)toast('บันทึกฉบับร่างในเบราว์เซอร์นี้แล้ว');return true;}catch{status('บันทึกไม่ได้ เบราว์เซอร์ไม่อนุญาตให้เก็บข้อมูล กรุณาเปิดการจัดเก็บข้อมูลแล้วลองอีกครั้ง');toast('บันทึกไม่ได้ กรุณาตรวจการอนุญาตจัดเก็บข้อมูลของเบราว์เซอร์');return false;}}
 
  find('#setup-logo').addEventListener('change',async event=>{
   const file=event.target.files[0];if(!file)return;logoError('');
@@ -122,9 +122,15 @@ export function mountBrandSetup(root){
  form.addEventListener('input',event=>{if(event.target.matches('[data-chip-input]')){if(event.target.getAttribute('aria-invalid'))setError(event.target.dataset.chipInput,'');return;}sync();if(event.target.id==='setup-name'&&state.name.trim())setError('name','');status('มีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก');});
  form.addEventListener('change',()=>{sync();if(state.category)setError('category','');});
  form.addEventListener('keydown',event=>{if(event.target.matches('[data-chip-input]')&&event.key==='Enter'&&!event.isComposing){event.preventDefault();addChip(event.target.dataset.chipInput);}});
- page.addEventListener('click',event=>{const add=event.target.closest('[data-chip-add]'),remove=event.target.closest('[data-chip-remove]');if(add){addChip(add.dataset.chipAdd);find(`[data-chip-input="${add.dataset.chipAdd}"]`).focus();}if(remove){const key=remove.dataset.chipRemove;state[key].splice(Number(remove.dataset.index),1);drawChips(key);sync();find(`[data-chip-input="${key}"]`).focus();status('ลบรายการแล้ว · ยังไม่ได้บันทึก');}if(event.target.closest('[data-remove-logo]')&&!uploading){state.logo='';find('#setup-logo').value='';logoError('');sync();status('ลบรูปแล้ว · ยังไม่ได้บันทึก');}if(event.target.closest('[data-save-brand]')){if(uploading)return;for(const key of Object.keys(limits))if(!addChip(key))return;sync();save();}});
- form.addEventListener('submit',event=>{event.preventDefault();if(uploading)return;for(const key of Object.keys(limits))if(!addChip(key)){find('#setup-'+key).focus();return;}sync();setError('name',state.name.trim()?'':'กรุณากรอกชื่อร้าน');setError('category',state.category?'':'กรุณาเลือกประเภทสินค้า');setError('products',state.products.length?'':'กรุณาเพิ่มสินค้าอย่างน้อย 1 รายการ');const invalid=form.querySelector('[aria-invalid="true"]');if(invalid){invalid.focus();status('กรุณาตรวจสอบช่องที่ระบุ');return;}if(!save())return;if(location.hash.includes('from=settings')){location.hash='/settings';toast('บันทึกข้อมูลแบรนด์ในเบราว์เซอร์แล้ว');}else location.hash='/connect-data';});
- return ()=>{dropdownEvents.abort();cancelStream();reducedMotion.removeEventListener('change',onReducedMotion);};
+ page.addEventListener('click',event=>{if(submitting)return;const add=event.target.closest('[data-chip-add]'),remove=event.target.closest('[data-chip-remove]');if(add){addChip(add.dataset.chipAdd);find(`[data-chip-input="${add.dataset.chipAdd}"]`).focus();}if(remove){const key=remove.dataset.chipRemove;state[key].splice(Number(remove.dataset.index),1);drawChips(key);sync();find(`[data-chip-input="${key}"]`).focus();status('ลบรายการแล้ว · ยังไม่ได้บันทึก');}if(event.target.closest('[data-remove-logo]')&&!uploading){state.logo='';find('#setup-logo').value='';logoError('');sync();status('ลบรูปแล้ว · ยังไม่ได้บันทึก');}if(event.target.closest('[data-save-brand]')){if(uploading)return;for(const key of Object.keys(limits))if(!addChip(key))return;sync();save();}});
+ form.addEventListener('submit',event=>{event.preventDefault();if(uploading||submitting)return;for(const key of Object.keys(limits))if(!addChip(key)){find('#setup-'+key).focus();return;}sync();setError('name',state.name.trim()?'':'กรุณากรอกชื่อร้าน');setError('category',state.category?'':'กรุณาเลือกประเภทสินค้า');setError('products',state.products.length?'':'กรุณาเพิ่มสินค้าอย่างน้อย 1 รายการ');const invalid=form.querySelector('[aria-invalid="true"]');if(invalid){invalid.focus();status('กรุณาตรวจสอบช่องที่ระบุ');return;}if(!save(false))return;
+  submitting=true;const editing=location.hash.includes('from=settings'),submit=page.querySelector('[type="submit"]');
+  submit.style.minWidth=submit.getBoundingClientRect().width+'px';submit.classList.add('is-loading');submit.setAttribute('aria-busy','true');
+  submit.innerHTML=`<span class="bc-login-spinner" aria-hidden="true"></span><span>${editing?'กำลังกลับหน้าตั้งค่า…':'กำลังไปขั้นตอนถัดไป…'}</span>`;
+  form.setAttribute('aria-busy','true');for(const control of form.elements)control.disabled=true;submit.disabled=true;find('[data-save-brand]').disabled=true;
+  status(editing?'บันทึกข้อมูลแล้ว กำลังกลับหน้าตั้งค่า':'บันทึกข้อมูลแล้ว กำลังไปขั้นตอนถัดไป');
+  nextStepTimer=setTimeout(()=>{if(!page.isConnected)return;location.hash=editing?'/settings':'/connect-data';},reducedMotion.matches?150:750);});
+ return ()=>{clearTimeout(nextStepTimer);dropdownEvents.abort();cancelStream();reducedMotion.removeEventListener('change',onReducedMotion);};
 }
 
 export function connectionHandoff(){return `<div class="bc-setup-page">${setupHeader(2)}<section class="bc-setup-next"><span>${icon('link')}</span><h1>ต่อไป เชื่อมต่อช่องทางของร้าน</h1><p>ข้อมูลแบรนด์บันทึกในเบราว์เซอร์แล้ว<br>หน้าเชื่อมต่อข้อมูลจะพัฒนาเป็นขั้นตอนถัดไป</p><a class="bc-button bc-button--primary" href="#/brand-setup">กลับไปดูข้อมูลแบรนด์</a></section></div>`;}

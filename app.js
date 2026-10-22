@@ -3,7 +3,7 @@ import {shell,icon,button,card,emptyState,listRow,escapeHTML,openDialog,closeDia
 import {dashboard,intro} from './dashboard.js';
 import {componentGallery} from './components.js';
 import {loginPage,googleAccountChooser} from './login.js';
-import {brandSetupPage,mountBrandSetup,connectionHandoff} from './brand-setup.js?v=13';
+import {brandSetupPage,mountBrandSetup,connectionHandoff} from './brand-setup.js?v=14';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
