@@ -2,20 +2,22 @@ import {brand,metrics,categories,comments,issues,products,navigation} from './sh
 import {shell,icon,button,card,emptyState,listRow,escapeHTML,openDialog,closeDialog,toast,reveal,countTo,mobileMenu,mobileDestinations} from './shared/ui.js';
 import {dashboard,intro} from './dashboard.js';
 import {componentGallery} from './components.js';
-import {loginPage,brandSetupHandoff,googleAccountChooser} from './login.js';
+import {loginPage,googleAccountChooser} from './login.js';
+import {brandSetupPage,mountBrandSetup,connectionHandoff} from './brand-setup.js?v=13';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
 document.querySelector('#app').innerHTML=shell();
 const root=$('#bc-main');
 let cleanupReveal;
+let cleanupPage;
 let route='today';
 let loginTransitionTimer;
 
 // หน้า Login, Dashboard และคอมโพเนนต์พร้อมใช้ ส่วนหน้าอื่นเป็นจุดเชื่อมต่อรอพัฒนา
 const futureRoutes={issues:{title:'รายการปัญหา',page:6},comments:{title:'คอมเมนต์',page:9},sales:{title:'ยอดขายและรีวิว',page:11},festivals:{title:'ปฏิทินเทศกาล',page:13},ai:{title:'ถาม AI',page:15},settings:{title:'ตั้งค่า',page:17}};
 function destinationPage(parts){const name=parts[0];if(name==='issues'&&parts[2]==='approve')return {title:'อนุมัติและส่งข้อความ',page:8};if(name==='issues'&&parts[1])return {title:'รายละเอียดปัญหา',page:7};if(name==='comments'&&parts[1])return {title:'รายละเอียดคอมเมนต์',page:10};return futureRoutes[name];}
-function futurePage(parts){const target=destinationPage(parts);return `<div class="bc-page">${intro(target.title,'เตรียมโครงหน้าร่วมไว้แล้ว สำหรับงานลำดับถัดไป',{eyebrow:'BrandCare AI · จุดเชื่อมต่อหน้า '+target.page,date:false})}${card({title:'หน้านี้จะทำในรอบถัดไป',eyebrow:'ขอบเขตรอบนี้: ไฟล์กลางและ Dashboard รวม',content:emptyState({title:'Header พร้อมแล้ว รอเติมเนื้อหาของหน้านี้',description:'ปุ่มนี้พามาถูกตำแหน่งตามแผน หน้าอื่นยังไม่ได้เริ่มพัฒนาในรอบนี้ จึงไม่มีการอนุมัติ ส่งข้อความ หรือเรียก AI จริง',iconName:parts[0]==='ai'?'sparkles':'link',action:button('กลับสรุปวันนี้',{href:'#/today',iconName:'arrow'})})})}<div class="bc-context-note">${icon('shield')}หน้า ${target.page} ยังไม่ถือว่าเสร็จ · ดูขอบเขตและคอมโพเนนต์กลางได้จากลิงก์ท้ายหน้า</div></div>`;}
+function futurePage(parts){const target=destinationPage(parts);return `<div class="bc-page">${intro(target.title,'เตรียมโครงหน้าร่วมไว้แล้ว สำหรับงานลำดับถัดไป',{eyebrow:'BrandCare AI · จุดเชื่อมต่อหน้า '+target.page,date:false})}${card({title:'หน้านี้จะทำในรอบถัดไป',eyebrow:'ขอบเขตรอบนี้: ไฟล์กลางและ Dashboard รวม',content:emptyState({title:'Header พร้อมแล้ว รอเติมเนื้อหาของหน้านี้',description:'ปุ่มนี้พามาถูกตำแหน่งตามแผน หน้าอื่นยังไม่ได้เริ่มพัฒนาในรอบนี้ จึงไม่มีการอนุมัติ ส่งข้อความ หรือเรียก AI จริง',iconName:parts[0]==='ai'?'sparkles':'link',action:button('กลับสรุปวันนี้',{href:'#/today',iconName:'arrow'})})})}${target.page===17?button('แก้ไขข้อมูลแบรนด์',{href:'#/brand-setup?from=settings',variant:'soft'}):''}<div class="bc-context-note">${icon('shield')}หน้า ${target.page} ยังไม่ถือว่าเสร็จ · ดูขอบเขตและคอมโพเนนต์กลางได้จากลิงก์ท้ายหน้า</div></div>`;}
 function moveIndicator(){const active=$('.bc-nav-link.is-active');const indicator=$('.bc-nav-indicator');if(!active){indicator.style.opacity='0';return;}indicator.style.opacity='1';indicator.style.width=active.offsetWidth+'px';indicator.style.transform=`translateX(${active.offsetLeft-4}px)`;}
 function closeMobileMenu(){const menu=$('#bc-mobile-menu');if(menu.matches(':popover-open'))menu.hidePopover();$('.bc-bottom-menu').setAttribute('aria-expanded','false');}
 function positionMobileMenu(){
@@ -30,16 +32,17 @@ function positionMobileMenu(){
 }
 function closeNotifications(){$('#bc-notifications').hidden=true;$('.bc-notification-trigger').setAttribute('aria-expanded','false');}
 function render(){
- clearTimeout(loginTransitionTimer);
+ clearTimeout(loginTransitionTimer);cleanupPage?.();cleanupPage=undefined;
  closeMobileMenu();cleanupReveal?.();if($('#bc-dialog').open)closeDialog();closeNotifications();
  const hash=decodeURIComponent(location.hash.replace(/^#\/?/,''));const path=hash.split('?')[0];const parts=(path||'login').split('/');route=parts[0];
  if(route==='login')root.innerHTML=loginPage();
- else if(route==='brand-setup')root.innerHTML=brandSetupHandoff();
+ else if(route==='brand-setup'){root.innerHTML=brandSetupPage();cleanupPage=mountBrandSetup(root);}
+ else if(route==='connect-data')root.innerHTML=connectionHandoff();
  else if(route==='today')root.innerHTML=dashboard();
  else if(route==='components')root.innerHTML=componentGallery();
  else if(futureRoutes[route])root.innerHTML=futurePage(parts);
  else root.innerHTML=`<div class="bc-page">${intro('ไม่พบหน้าที่ต้องการ','เลือกเมนูด้านบนเพื่อกลับไปดูแลร้าน',{date:false})}${emptyState({title:'ลิงก์นี้ยังไม่มีในแผน',action:button('กลับสรุปวันนี้',{href:'#/today'})})}</div>`;
- document.title=(route==='login'?'เข้าสู่ระบบ':route==='brand-setup'?'ตั้งค่าแบรนด์':route==='today'?'สรุปวันนี้':route==='components'?'ชุดคอมโพเนนต์':futureRoutes[route]?.title||'ไม่พบหน้า')+' · BrandCare AI';
+ document.title=(route==='login'?'เข้าสู่ระบบ':route==='brand-setup'?'ตั้งค่าแบรนด์':route==='connect-data'?'เชื่อมต่อข้อมูล':route==='today'?'สรุปวันนี้':route==='components'?'ชุดคอมโพเนนต์':futureRoutes[route]?.title||'ไม่พบหน้า')+' · BrandCare AI';
  $$('.bc-nav-link').forEach(link=>{const active=link.getAttribute('href')==='#/'+route;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
  $$('.bc-bottom-link').forEach(link=>{const active=link.dataset.route===route;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
  $('.bc-bottom-menu').classList.toggle('is-active',!mobileDestinations.some(n=>n.id===route));

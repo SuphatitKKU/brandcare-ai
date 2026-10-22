@@ -65,10 +65,6 @@ export function loginPage(){
  </div>`;
 }
 
-export function brandSetupHandoff(){
- return `<section class="bc-page bc-login-handoff"><span class="bc-eyebrow">ขั้นตอนถัดไป · ข้อมูลจำลอง</span><h1>มารู้จักแบรนด์ของคุณกัน</h1><p>คุณมาถึงหน้าตั้งค่าแบรนด์แล้ว หน้า 2 จะพัฒนาในฟีเจอร์ถัดไป</p><p>การเข้าสู่ระบบเมื่อสักครู่เป็นการจำลอง ไม่มีบัญชีหรือเซสชันจริง</p><div>${'<a class="bc-button bc-button--primary" href="#/today">สำรวจ Dashboard ตัวอย่าง</a>'}<a class="bc-button bc-button--secondary" href="#/login">กลับหน้าเข้าสู่ระบบ</a></div></section>`;
-}
-
 export function googleAccountChooser(){
  return `<div class="bc-google-chooser">
   <div class="bc-google-heading">${googleMark()}<span>เข้าสู่ระบบด้วย Google</span></div>
