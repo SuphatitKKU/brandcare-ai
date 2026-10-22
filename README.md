@@ -2,7 +2,7 @@
 
 หน้าที่พร้อมในชุดนี้: หน้า 1 ยินดีต้อนรับ / Login, หน้า 5 สรุปวันนี้ และชุดคอมโพเนนต์กลาง ตาม `MOCKUP-PAGES.md`
 
-งานที่ 1 ของภูมิ: **UI Login mockup เสร็จและตรวจ responsive แล้ว** · รุ่นแรก [PR #2](https://github.com/SuphatitKKU/brandcare-ai/pull/2) · ปรับ responsive/validation [PR #3](https://github.com/SuphatitKKU/brandcare-ai/pull/3) · ดูผลตรวจและงานที่ยังไม่รวมในตารางติดตามหน้า 1 ของ `MOCKUP-PAGES.md`
+สถานะงานและผลตรวจแต่ละหน้า: [MOCKUP-TRACKING.md](MOCKUP-TRACKING.md)
 
 Repository ของทีม: https://github.com/SuphatitKKU/brandcare-ai (Private)
 
