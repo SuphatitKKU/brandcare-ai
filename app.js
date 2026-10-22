@@ -82,10 +82,27 @@ document.addEventListener('click',event=>{
 $('#bc-mobile-menu').addEventListener('toggle',event=>{const open=event.newState==='open';$('.bc-bottom-menu').setAttribute('aria-expanded',String(open));$('.bc-bottom-nav').classList.toggle('has-open-menu',open);});
 $('#bc-dialog').addEventListener('click',event=>{const d=event.currentTarget;if(event.target!==d)return;const r=d.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeDialog();});
 document.addEventListener('keydown',event=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k'){event.preventDefault();openSearch();}if(event.key==='Escape')closeNotifications();});
+function setLoginFieldError(input,message){
+ const error=document.getElementById(input.id+'-error');
+ error.hidden=!message;error.querySelector('span').textContent=message;
+ if(message){input.setAttribute('aria-invalid','true');input.setAttribute('aria-describedby',error.id);}
+ else{input.removeAttribute('aria-invalid');input.removeAttribute('aria-describedby');}
+}
+function validateLoginField(input){
+ let message='';
+ if(!input.value.trim())message=input.id==='bc-login-address'?'กรุณากรอกอีเมลของคุณ':'กรุณากรอกรหัสผ่านของคุณ';
+ else if(input.type==='email'&&input.validity.typeMismatch)message='กรุณากรอกอีเมลให้ถูกต้อง เช่น name@example.com';
+ setLoginFieldError(input,message);return !message;
+}
+document.addEventListener('input',event=>{if(event.target.matches('#bc-login-form input[aria-invalid="true"]'))validateLoginField(event.target);});
+document.addEventListener('reset',event=>{if(event.target.id!=='bc-login-form')return;$$('.bc-login-field input',event.target).forEach(input=>setLoginFieldError(input,''));$('#bc-login-validation').textContent='';});
 document.addEventListener('submit',event=>{
  if(event.target.id!=='bc-login-form')return;
  event.preventDefault();const form=event.target;
- if(form.getAttribute('aria-busy')==='true'||!form.reportValidity())return;
+ if(form.getAttribute('aria-busy')==='true')return;
+ const invalid=$$('.bc-login-field input',form).filter(input=>!validateLoginField(input));
+ if(invalid.length){$('#bc-login-validation').textContent=`กรุณาตรวจสอบข้อมูล ${invalid.length} ช่องที่ระบุ`;invalid[0].focus();return;}
+ $('#bc-login-validation').textContent='';
  const signup=$('[data-mode="signup"]').getAttribute('aria-pressed')==='true';
  form.setAttribute('aria-busy','true');
  $$('.bc-login-welcome button,.bc-login-welcome input').forEach(el=>el.disabled=true);

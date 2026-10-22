@@ -4,13 +4,19 @@ body:has(.bc-login-page){background:radial-gradient(ellipse at 0% 0%,#dcecff 0,t
 .bc-login-page:before,.bc-login-page:after{content:'';position:fixed;z-index:-1;pointer-events:none;border:1px solid #8cb6ed1c;border-radius:50%;width:700px;height:700px}
 .bc-login-page:before{top:28%;left:-570px;box-shadow:0 0 0 34px #ffffff24,0 0 0 35px #8cb6ed14,0 0 0 90px #ffffff12,0 0 0 91px #8cb6ed0e}
 .bc-login-page:after{right:-470px;bottom:-540px;width:1000px;height:1000px;box-shadow:0 0 0 55px #ffffff14,0 0 0 56px #8cb6ed14}
-@media(max-width:700px){.bc-login-page:before{left:-650px;opacity:.5}.bc-login-page:after{opacity:.5}}
+
 .bc-login-layout{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;min-height:calc(100svh - 110px);padding:30px 0 40px}
 .bc-login-welcome{width:100%;max-width:340px;margin:auto;padding:20px 0}
 .bc-login-brand{display:flex;align-items:center;gap:7px;font-size:23px;font-weight:600;letter-spacing:-.8px;margin-bottom:24px}.bc-login-brand>span:last-child{color:var(--bc-blue)}.bc-login-brand .bc-brand-symbol{display:grid;place-items:center;width:34px;height:34px;background:var(--bc-ink);color:white;border-radius:9px;margin-right:3px}.bc-login-brand .bc-icon{width:23px;height:23px}
 .bc-login-welcome h1{font-size:22px;font-weight:500;letter-spacing:-.4px;line-height:1.5}.bc-login-description{font-size:12px;line-height:1.7;color:var(--bc-secondary);margin:4px 0 24px}
 .bc-login-tabs{display:grid;grid-template-columns:1fr 1fr;border:1px solid #d7d7dd;border-radius:999px;padding:3px;margin-bottom:18px}.bc-login-tabs button{min-height:32px;border-radius:999px;font-size:12px;color:var(--bc-secondary)}.bc-login-tabs button[aria-pressed=true]{background:var(--bc-blue);color:white;box-shadow:0 2px 6px #0071e31a}
 .bc-login-form{display:grid;gap:12px}.bc-login-input{display:flex;align-items:center;border:1px solid #d7d7dd;border-radius:999px;padding:0 15px;min-width:0;gap:10px;background:#ffffff60}.bc-login-input:focus-within{border-color:var(--bc-blue);box-shadow:0 0 0 3px #0071e31a}.bc-login-input input{border:0;background:transparent;min-width:0;width:100%;padding:13px 0;font-size:12px;color:var(--bc-ink);outline:none}.bc-login-input>.bc-icon,.bc-login-input button .bc-icon{width:17px;height:17px;color:var(--bc-muted)}.bc-login-input button{display:grid;place-items:center;padding:8px;margin-right:-7px;border-radius:50%}
+.bc-login-input input:focus-visible{outline:none}
+.bc-login-field{min-width:0}
+.bc-login-error{display:flex;align-items:flex-start;gap:6px;margin:7px 14px 0;color:#b43b3b;font-size:12px;line-height:1.6}
+.bc-login-error .bc-icon{width:15px;height:15px;margin-top:2px}
+.bc-login-input:has(input[aria-invalid="true"]){border-color:#c64d4d;background:#fff7f7}
+.bc-login-input:has(input[aria-invalid="true"]):focus-within{box-shadow:0 0 0 3px #c64d4d18}
 .bc-login-options{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;margin-top:0}.bc-login-options>label{display:flex;align-items:center;gap:5px;color:var(--bc-secondary);cursor:pointer}.bc-login-options input{accent-color:var(--bc-blue);width:14px;height:14px;margin:0 2px 0 0}.bc-login-options>label>span{font-size:9px;color:var(--bc-muted)}.bc-login-options>button{color:var(--bc-blue);font-size:11px;padding:6px 0}
 .bc-login-submit{width:100%;justify-content:center;border-radius:999px;min-height:46px;margin-top:20px;font-size:13px}
 .bc-login-divider{display:flex;align-items:center;gap:12px;font-size:10px;color:var(--bc-muted);margin:28px 0 24px}.bc-login-divider:before,.bc-login-divider:after{content:'';height:1px;background:#dedee3;flex:1}
@@ -54,8 +60,8 @@ body:has(.bc-login-page){background:radial-gradient(ellipse at 0% 0%,#dcecff 0,t
 @keyframes bc-store-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes bc-icon-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes bc-orbit-turn{to{transform:rotate(360deg)}}
-@media(max-width:1000px){.bc-login-art{min-height:580px;padding:25px 18px}.bc-login-art-copy h2{font-size:26px}.bc-login-art-tag{font-size:9px}.bc-login-scene{margin-top:25px}}
-@media(max-width:700px){.bc-login-art{width:100%;max-width:440px;min-height:520px;margin:auto}.bc-login-scene{max-width:330px;margin-top:0}.bc-login-art-copy h2{font-size:27px}.bc-login-art-copy p{font-size:12px}}
+
+
 @media(prefers-reduced-motion:reduce){.bc-login-store-art,.bc-login-float,.bc-login-orbit--inner{animation:none}}
 .bc-dialog:has(.bc-google-chooser){width:min(720px,calc(100vw - 32px));max-width:720px;padding:0;border-radius:26px;background:#fff;overflow:auto}
 .bc-google-heading{display:flex;align-items:center;gap:10px;padding:24px 30px;border-bottom:1px solid var(--bc-line);font-size:12px;color:var(--bc-secondary)}
@@ -67,15 +73,15 @@ body:has(.bc-login-page){background:radial-gradient(ellipse at 0% 0%,#dcecff 0,t
 @media(max-width:600px){.bc-google-heading{padding:22px}.bc-google-body{grid-template-columns:1fr;padding:26px 22px;gap:18px}.bc-google-intro{grid-row:auto}.bc-google-app{width:38px;height:38px;margin-bottom:14px}.bc-google-chooser .bc-google-intro h2{font-size:28px}.bc-google-service{margin-top:0}.bc-google-footer{padding:14px 22px}}
 .bc-login-handoff{padding-top:80px;padding-bottom:100px}.bc-login-handoff h1{font-size:36px;margin:15px 0}.bc-login-handoff p{color:var(--bc-secondary);line-height:1.8;margin-bottom:12px}.bc-login-handoff>div{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 @media(min-width:1440px){.bc-login-layout{gap:100px;padding-left:45px;padding-right:45px}}
-@media(max-width:1000px){.bc-login-page{padding:22px 32px}.bc-login-layout{gap:40px}}
-@media(max-width:700px){.bc-login-page{padding:22px}.bc-login-layout{grid-template-columns:1fr;gap:36px;padding:25px 0 36px;min-height:auto}.bc-login-welcome{max-width:340px;padding:10px 0}.bc-login-footer{font-size:9px}.bc-login-handoff h1{font-size:28px}}
-@media(max-width:360px){.bc-login-page{padding:20px 16px}.bc-login-options{gap:6px;font-size:10px}}
-@media(min-width:701px) and (min-height:660px){
+
+
+
+@media(min-width:1024px) and (min-height:660px){
  .bc-login-page{height:100svh;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:12px;padding-top:18px;padding-bottom:16px}
  .bc-login-layout{min-height:0;padding:0;align-items:stretch}
  .bc-login-welcome{align-self:center;padding:0}
  .bc-login-art{min-height:0;height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;justify-items:center;padding:24px 20px 18px}
- .bc-login-scene{height:100%;min-height:0;aspect-ratio:auto;margin:0;max-width:360px}
+ .bc-login-scene{height:100%;max-height:420px;align-self:center;min-height:0;aspect-ratio:auto;margin:0;max-width:360px}
  .bc-login-store-art{height:100%;min-height:0;max-width:100%;object-fit:contain}
  .bc-login-orbit{width:auto;height:86%;aspect-ratio:1;left:50%;top:7%;translate:-50% 0}
  .bc-login-orbit--inner{height:65%;top:17.5%}
@@ -84,3 +90,65 @@ body:has(.bc-login-page){background:radial-gradient(ellipse at 0% 0%,#dcecff 0,t
  .bc-login-art-bottom{margin-top:16px}
  .bc-login-footer{padding-top:10px}
 }
+
+/* Single-column forms keep phones and portrait tablets comfortable to use. */
+@media(max-width:1023px){
+ .bc-login-page{min-height:100svh;padding:28px clamp(20px,5vw,48px) 20px;padding-top:max(28px,env(safe-area-inset-top));padding-bottom:max(20px,env(safe-area-inset-bottom))}
+ .bc-login-page:before{left:-650px;opacity:.5}.bc-login-page:after{opacity:.5}
+ .bc-login-layout{grid-template-columns:minmax(0,1fr);min-height:0;padding:12px 0 28px;gap:32px}
+ .bc-login-welcome{max-width:420px;padding:0;min-width:0}
+ .bc-login-brand{font-size:25px;margin-bottom:26px}
+ .bc-login-welcome h1{font-size:25px;line-height:1.45}
+ .bc-login-description{font-size:14px;line-height:1.7;margin:8px 0 24px}
+ .bc-login-tabs{margin-bottom:20px}.bc-login-tabs button{min-height:40px;font-size:14px}
+ .bc-login-form{gap:14px}.bc-login-input{min-height:52px;padding:0 17px}
+ .bc-login-input input{font-size:16px;padding:14px 0}
+ .bc-login-input button{min-width:44px;min-height:44px;padding:10px;margin-right:-12px}
+ .bc-login-input>.bc-icon,.bc-login-input button .bc-icon{width:19px;height:19px}
+ .bc-login-options{gap:10px;font-size:12px}.bc-login-options>label{min-height:44px;gap:8px}.bc-login-options input{width:18px;height:18px}.bc-login-options>button{min-height:44px;font-size:12px}
+ .bc-login-submit{min-height:52px;font-size:15px;margin-top:8px}
+ .bc-login-divider{margin:22px 0;font-size:12px}
+ .bc-login-provider{min-height:50px;font-size:14px}
+ .bc-login-art{width:100%;max-width:520px;margin:auto;min-height:0;padding:18px;border-radius:24px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:10px}
+ .bc-login-art-tag,.bc-login-art-bottom{display:none}
+ .bc-login-scene{max-width:210px;min-width:0;width:100%;margin:0;aspect-ratio:1;align-self:center}
+ .bc-login-art-copy{margin:0;text-align:left;min-width:0}
+ .bc-login-art-copy>span{font-size:8px;letter-spacing:1px;line-height:1.7;display:block}
+ .bc-login-art-copy h2{font-size:clamp(18px,3vw,25px);line-height:1.5;letter-spacing:-.5px;margin:8px 0 0}
+ .bc-login-art-copy p{font-size:11px;line-height:1.8;margin-top:10px}
+ .bc-login-float--heart{width:29px;height:29px;border-radius:10px}.bc-login-float--heart .bc-icon{width:17px;height:17px}
+ .bc-login-float--chat{width:40px;height:28px;border-radius:9px;gap:2px}.bc-login-float--chat .bc-icon{width:13px;height:13px}.bc-login-float--chat i{width:2px;height:2px}
+ .bc-login-float--spark{width:25px;height:25px;border-radius:9px}.bc-login-float--spark .bc-icon{width:15px;height:15px}
+ .bc-login-float--leaf{width:24px;height:24px}.bc-login-float--leaf .bc-icon{width:14px;height:14px}
+ .bc-login-footer{max-width:520px;margin:auto;width:100%;font-size:10px;padding-top:16px;gap:12px}
+ .bc-login-handoff{padding-top:40px;padding-bottom:48px}.bc-login-handoff h1{font-size:28px}
+}
+@media(max-width:600px){
+ .bc-login-art{max-width:420px;padding:14px;gap:8px}
+ .bc-login-art-copy p{display:none}
+ .bc-login-float{animation-name:bc-mobile-icon-float}
+ .bc-login-float--heart{width:22px;height:22px;border-radius:8px;left:3%;top:17%}
+ .bc-login-float--heart .bc-icon{width:13px;height:13px}
+ .bc-login-float--chat{width:30px;height:21px;border-radius:7px;right:0;top:28%;gap:1px}
+ .bc-login-float--chat .bc-icon{width:10px;height:10px;margin-right:0}
+ .bc-login-float--chat i{width:1.5px;height:1.5px}
+ .bc-login-float--spark,.bc-login-float--leaf{display:none}
+ .bc-dialog:has(.bc-google-chooser){width:calc(100vw - 24px);max-height:calc(100dvh - 24px);border-radius:22px}
+ .bc-google-heading{padding:20px;font-size:12px;padding-right:58px}
+ .bc-google-body{padding:22px 20px;gap:14px}
+ .bc-google-account,.bc-google-other{min-height:64px;padding:14px 4px;gap:10px}
+ .bc-google-account strong{font-size:14px}.bc-google-account small{font-size:12px}.bc-google-other{font-size:13px}
+ .bc-google-footer{padding:10px 20px}.bc-google-footer button{min-height:44px;padding:10px 18px}
+ .bc-dialog:has(.bc-google-chooser) .bc-dialog-close{width:44px;height:44px;top:10px;right:10px}
+}
+@keyframes bc-mobile-icon-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media(max-width:359px){
+ .bc-login-page{padding-left:16px;padding-right:16px}
+ .bc-login-brand{font-size:23px}.bc-login-welcome h1{font-size:23px}.bc-login-description{font-size:13px}
+ .bc-login-tabs button{font-size:13px}.bc-login-options{font-size:11px}.bc-login-options>button{font-size:11px}
+ .bc-login-art-copy>span{font-size:7px;letter-spacing:.5px}.bc-login-art-copy h2{font-size:17px}.bc-login-footer{font-size:9px}
+}
+@media(max-width:1023px) and (max-height:500px){
+ .bc-login-page{padding-top:20px}.bc-login-layout{padding-top:0;gap:0}.bc-login-art{display:none}
+}
+@media(hover:none){.bc-login-submit:hover:not(:disabled),.bc-login-provider:hover:not(:disabled){transform:none;box-shadow:none}}
