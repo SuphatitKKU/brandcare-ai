@@ -94,3 +94,5 @@ body:has(.bc-setup-page) .bc-global-header,body:has(.bc-setup-page) .bc-local-he
 @media(max-width:359px){.bc-setup-summary-toggle{gap:9px;padding:15px 12px}.bc-setup-summary-affordance>span{display:none}}
 @media(prefers-reduced-motion:no-preference) and (max-width:600px){.bc-setup-preview.is-open .bc-setup-preview-body{animation:setup-select-in .18s ease-out}}
 @media(prefers-reduced-motion:reduce){.bc-setup-summary-affordance>.bc-icon{transition:none}}
+
+.bc-setup-actions .bc-button.is-loading{cursor:wait;opacity:1;background:var(--bc-blue);color:white}.bc-setup-actions .bc-button.is-loading .bc-login-spinner{flex:none}
