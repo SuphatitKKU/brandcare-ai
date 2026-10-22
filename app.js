@@ -15,9 +15,30 @@ let route='today';
 let loginTransitionTimer;
 
 // หน้า Login, Dashboard และคอมโพเนนต์พร้อมใช้ ส่วนหน้าอื่นเป็นจุดเชื่อมต่อรอพัฒนา
-const futureRoutes={issues:{title:'รายการปัญหา',page:6},comments:{title:'คอมเมนต์',page:9},sales:{title:'ยอดขายและรีวิว',page:11},festivals:{title:'ปฏิทินเทศกาล',page:13},ai:{title:'ถาม AI',page:15},settings:{title:'ตั้งค่า',page:17}};
-function destinationPage(parts){const name=parts[0];if(name==='issues'&&parts[2]==='approve')return {title:'อนุมัติและส่งข้อความ',page:8};if(name==='issues'&&parts[1])return {title:'รายละเอียดปัญหา',page:7};if(name==='comments'&&parts[1])return {title:'รายละเอียดคอมเมนต์',page:10};return futureRoutes[name];}
-function futurePage(parts){const target=destinationPage(parts);return `<div class="bc-page">${intro(target.title,'เตรียมโครงหน้าร่วมไว้แล้ว สำหรับงานลำดับถัดไป',{eyebrow:'BrandCare AI · จุดเชื่อมต่อหน้า '+target.page,date:false})}${card({title:'หน้านี้จะทำในรอบถัดไป',eyebrow:'ขอบเขตรอบนี้: ไฟล์กลางและ Dashboard รวม',content:emptyState({title:'Header พร้อมแล้ว รอเติมเนื้อหาของหน้านี้',description:'ปุ่มนี้พามาถูกตำแหน่งตามแผน หน้าอื่นยังไม่ได้เริ่มพัฒนาในรอบนี้ จึงไม่มีการอนุมัติ ส่งข้อความ หรือเรียก AI จริง',iconName:parts[0]==='ai'?'sparkles':'link',action:button('กลับสรุปวันนี้',{href:'#/today',iconName:'arrow'})})})}${target.page===17?button('แก้ไขข้อมูลแบรนด์',{href:'#/brand-setup?from=settings',variant:'soft'}):''}<div class="bc-context-note">${icon('shield')}หน้า ${target.page} ยังไม่ถือว่าเสร็จ · ดูขอบเขตและคอมโพเนนต์กลางได้จากลิงก์ท้ายหน้า</div></div>`;}
+const futureRoutes={
+ issues:{title:'รายการปัญหา',page:6,owner:'ภูมิ',next:{href:'#/issues/packaging',label:'ไปหน้า 7 รายละเอียดปัญหา'}},
+ comments:{title:'คอมเมนต์',page:9,owner:'หยุ่น',next:{href:'#/comments/1',label:'ไปหน้า 10 รายละเอียดคอมเมนต์'}},
+ sales:{title:'ยอดขายและรีวิว',page:11,owner:'หยุ่น',next:{href:'#/sales/butter',label:'ไปหน้า 12 รายละเอียดสินค้า'}},
+ festivals:{title:'ปฏิทินเทศกาล',page:13,owner:'เจด้า',next:{href:'#/festivals/11-11',label:'ไปหน้า 14 แผนคอนเทนต์ 11.11'}},
+ ai:{title:'ถาม AI',page:15,owner:'เจด้า',next:{href:'#/issues/packaging',label:'ดูหลักฐานปัญหา (หน้า 7)'}},
+ line:{title:'แจ้งเตือนทาง LINE',page:16,owner:'เจด้า',next:{href:'#/issues/packaging',label:'เปิดดูรายละเอียดในแอป (หน้า 7)'}},
+ settings:{title:'ตั้งค่า',page:17,owner:'เจด้า',next:{href:'#/brand-setup?from=settings',label:'แก้ไขข้อมูลแบรนด์ (หน้า 2)'}}
+};
+function destinationPage(parts){
+ const name=parts[0];
+ if(name==='issues'&&parts[2]==='approve')return {title:'อนุมัติและส่งข้อความ',page:8,owner:'โอ๊ค',next:{href:'#/issues/packaging?status=tracking',label:'จำลองส่งแล้ว · ไปหน้า 7 (สถานะติดตามผล)'}};
+ if(name==='issues'&&parts[1])return {title:'รายละเอียดปัญหา: กล่องบุบ',page:7,owner:'โอ๊ค',next:{href:'#/issues/packaging/approve',label:'ไปหน้า 8 อนุมัติแนวทางแก้'}};
+ if(name==='comments'&&parts[1])return {title:'รายละเอียดคอมเมนต์: #'+parts[1],page:10,owner:'หยุ่น',next:{href:'#/issues/packaging',label:'ดูปัญหาที่เกี่ยวข้อง (หน้า 7)'}};
+ if(name==='sales'&&parts[1])return {title:'รายละเอียดสินค้า: ทองม้วนกรอบ',page:12,owner:'หยุ่น',next:{href:'#/comments/1',label:'ดูรีวิวที่เกี่ยวข้อง (หน้า 10)'}};
+ if(name==='festivals'&&parts[1])return {title:'แผนคอนเทนต์เทศกาล: 11.11',page:14,owner:'เจด้า',next:{href:'#/festivals',label:'กลับปฏิทินเทศกาล (หน้า 13)'}};
+ return futureRoutes[name];
+}
+function futurePage(parts){
+ const target=destinationPage(parts);
+ if(!target) return `<div class="bc-page">${intro('ไม่พบหน้าที่ต้องการ','เลือกเมนูด้านบนเพื่อกลับไปดูแลร้าน',{date:false})}${emptyState({title:'ลิงก์นี้ยังไม่มีในแผน',action:button('กลับสรุปวันนี้',{href:'#/today'})})}</div>`;
+ const actions=`<div class="bc-dialog-actions" style="justify-content:center;margin-top:20px;gap:12px">${target.next?button(target.next.label,{href:target.next.href,iconName:'arrow',variant:'primary'}):''}${button('กลับสรุปวันนี้',{href:'#/today',variant:'secondary',iconName:'arrow'})}</div>`;
+ return `<div class="bc-page">${intro(target.title,'เตรียมโครงหน้าร่วมและจุดเชื่อมต่อไว้แล้ว สำหรับงานของทีม',{eyebrow:'BrandCare AI · จุดเชื่อมต่อหน้า '+target.page+(target.owner?' ('+target.owner+')':''),date:false})}${card({title:'หน้านี้จะทำในรอบถัดไป',eyebrow:'ขอบเขต: จุดเชื่อมต่อระบบและโครงสร้างร่วม',content:emptyState({title:'Header และ Shared UI พร้อมแล้ว รอพัฒนาเนื้อหาในรอบถัดไป',description:target.owner?('ผู้รับผิดชอบ: '+target.owner+' · ลิงก์นี้เชื่อมต่อตาม Flow ข้อ 3 ใน MOCKUP-PAGES.md เรียบร้อยแล้ว'):'ปุ่มนี้พามาถูกตำแหน่งตามแผน',iconName:parts[0]==='ai'?'sparkles':parts[0]==='line'?'bell':parts[0]==='festivals'?'calendar':parts[0]==='sales'?'box':'link',action:actions})})}${target.page===17?button('แก้ไขข้อมูลแบรนด์',{href:'#/brand-setup?from=settings',variant:'soft'}):''}<div class="bc-context-note">${icon('shield')}หน้า ${target.page}${target.owner?' ('+target.owner+')':''} ยังไม่ถือว่าเสร็จ · โครงสร้างและจุดเชื่อมต่อพร้อมส่งต่อให้ทีม</div></div>`;
+}
 function moveIndicator(){const active=$('.bc-nav-link.is-active');const indicator=$('.bc-nav-indicator');if(!active){indicator.style.opacity='0';return;}indicator.style.opacity='1';indicator.style.width=active.offsetWidth+'px';indicator.style.transform=`translateX(${active.offsetLeft-4}px)`;}
 function closeMobileMenu(){const menu=$('#bc-mobile-menu');if(menu.matches(':popover-open'))menu.hidePopover();$('.bc-bottom-menu').setAttribute('aria-expanded','false');}
 function positionMobileMenu(){
@@ -40,7 +61,7 @@ function render(){
  else if(route==='connect-data')root.innerHTML=connectionHandoff();
  else if(route==='today')root.innerHTML=dashboard();
  else if(route==='components')root.innerHTML=componentGallery();
- else if(futureRoutes[route])root.innerHTML=futurePage(parts);
+ else if(futureRoutes[route]||destinationPage(parts))root.innerHTML=futurePage(parts);
  else root.innerHTML=`<div class="bc-page">${intro('ไม่พบหน้าที่ต้องการ','เลือกเมนูด้านบนเพื่อกลับไปดูแลร้าน',{date:false})}${emptyState({title:'ลิงก์นี้ยังไม่มีในแผน',action:button('กลับสรุปวันนี้',{href:'#/today'})})}</div>`;
  document.title=(route==='login'?'เข้าสู่ระบบ':route==='brand-setup'?'ตั้งค่าแบรนด์':route==='connect-data'?'เชื่อมต่อข้อมูล':route==='today'?'สรุปวันนี้':route==='components'?'ชุดคอมโพเนนต์':futureRoutes[route]?.title||'ไม่พบหน้า')+' · BrandCare AI';
  $$('.bc-nav-link').forEach(link=>{const active=link.getAttribute('href')==='#/'+route;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
@@ -48,9 +69,25 @@ function render(){
  $('.bc-bottom-menu').classList.toggle('is-active',!mobileDestinations.some(n=>n.id===route));
  moveIndicator();cleanupReveal=reveal(root);window.scrollTo({top:0,behavior:'instant'});
  if(route==='today'){const values=$$('.bc-metric-number>strong');countTo(values[0],metrics.complaints);countTo(values[1],metrics.revenue,{prefix:'฿'});countTo(values[2],metrics.rating,{decimals:1});countTo($('[data-count]'),metrics.carrierShare);}
+ if(new URLSearchParams(location.search).get('menu')==='open'){
+  setTimeout(()=>{
+   $('#bc-mobile-menu').innerHTML=mobileMenu(route);
+   positionMobileMenu();
+   try{$('#bc-mobile-menu').showPopover();}catch(e){}
+  },150);
+ }
 }
 
-const searchable=[...navigation.map(n=>({title:n.label,detail:'เมนูหลัก · หน้า '+n.page,href:'#/'+n.id,icon:'link'})),...issues.map(i=>({title:i.title,detail:i.count+' คอมเมนต์ · '+i.subtitle,href:'#/issues/'+i.id,icon:'alert'})),...comments.map(c=>({title:c.user+' · '+c.text,detail:c.topic+' · '+categories[c.category].label,href:'#/comments/'+c.id,icon:'message'})),...products.map(p=>({title:p.name,detail:p.size+' · ฿'+p.price,href:'#/sales',icon:'box'})),{title:'11.11',detail:'อีก 20 วัน · เทศกาลที่ใกล้ถึง',href:'#/festivals',icon:'calendar'}];
+const searchable=[
+ ...navigation.map(n=>({title:n.label,detail:'เมนูหลัก · หน้า '+n.page,href:'#/'+n.id,icon:'link'})),
+ ...issues.map(i=>({title:i.title,detail:i.count+' คอมเมนต์ · '+i.subtitle,href:'#/issues/'+i.id,icon:'alert'})),
+ ...comments.map(c=>({title:c.user+' · '+c.text,detail:c.topic+' · '+categories[c.category].label,href:'#/comments/'+c.id,icon:'message'})),
+ ...products.map(p=>({title:p.name,detail:p.size+' · ฿'+p.price,href:'#/sales/'+p.id,icon:'box'})),
+ {title:'11.11',detail:'อีก 20 วัน · เทศกาลที่ใกล้ถึง · หน้า 13-14',href:'#/festivals/11-11',icon:'calendar'},
+ {title:'กล่องบุบ ทองม้วนแตก',detail:'คำบ่นเพิ่ม 340% (23 คอมเมนต์) · หน้า 7',href:'#/issues/packaging',icon:'alert'},
+ {title:'อนุมัติและส่งข้อความ',detail:'ส่งข้อความขอโทษ 23 คน · หน้า 8',href:'#/issues/packaging/approve',icon:'arrow'},
+ {title:'แจ้งเตือนทาง LINE',detail:'ข้อความสรุปเช้า 08:00 · หน้า 16',href:'#/line',icon:'bell'}
+];
 function searchResults(query){const q=query.toLocaleLowerCase('th').trim();const found=q?searchable.filter(item=>(item.title+' '+item.detail).toLocaleLowerCase('th').includes(q)):searchable.slice(0,7);$('#bc-search-count').textContent=q?`พบ ${found.length} รายการในข้อมูลจำลอง`:'เลือกเมนู หรือพิมพ์คำค้น เช่น “กล่องบุบ”';$('#bc-search-results').innerHTML=found.length?found.map(item=>`<a class="bc-search-result" href="${item.href}" data-search-result>${icon(item.icon)}<span><strong>${escapeHTML(item.title)}</strong><small>${escapeHTML(item.detail)}</small></span>${icon('chevron')}</a>`).join(''):emptyState({title:'ไม่พบผลการค้นหา',description:'ลองค้นหาชื่อสินค้า คอมเมนต์ หรือคำว่า กล่องบุบ',iconName:'search'});}
 function openSearch(){closeMobileMenu();closeNotifications();openDialog(`<h2>ค้นหาในร้าน</h2><label class="bc-search-field">${icon('search')}<input id="bc-global-search" type="search" placeholder="ค้นหาปัญหา คอมเมนต์ หรือสินค้า" aria-label="ค้นหาปัญหา คอมเมนต์ หรือสินค้า" autocomplete="off"></label><p id="bc-search-count" class="bc-notice-title" role="status"></p><div class="bc-search-results" id="bc-search-results"></div>`,{label:'ค้นหาในร้าน'});searchResults('');$('#bc-global-search').addEventListener('input',event=>searchResults(event.target.value));$('#bc-global-search').focus();}
 function demoDialog(drawer=false){openDialog(`<h2>${drawer?'แผงรายละเอียด':'ตรวจทานก่อนยืนยัน'}</h2><p class="bc-dialog-description">หน้าต่างนี้ใช้รูปแบบเดียวกันได้ทุกหน้า รองรับการปิดด้วย Esc การจัดการโฟกัส และการใช้งานด้วยคีย์บอร์ด</p><div class="bc-state-message">${icon('shield')}เป็นการสาธิต UI ไม่มีการส่งข้อความหรือเปลี่ยนข้อมูลจริง</div><label class="bc-field-label" for="bc-demo-note">บันทึกตัวอย่าง</label><textarea class="bc-textarea" id="bc-demo-note" placeholder="พิมพ์ข้อความเพื่อทดลองคอมโพเนนต์"></textarea><div class="bc-dialog-actions">${button('ยกเลิก',{action:'close-dialog',variant:'secondary'})}${button('ยืนยันตัวอย่าง',{action:'demo-confirm'})}</div>`,{drawer,label:drawer?'ตัวอย่างแผงรายละเอียด':'ตัวอย่างหน้าต่างยืนยัน'});}
@@ -82,7 +119,7 @@ document.addEventListener('click',event=>{
  if(!event.target.closest('#bc-notifications,.bc-notification-trigger'))closeNotifications();
  if(event.target.closest('.bc-nav-link,.bc-notice'))closeNotifications();
 });
-$('#bc-mobile-menu').addEventListener('toggle',event=>{const open=event.newState==='open';$('.bc-bottom-menu').setAttribute('aria-expanded',String(open));$('.bc-bottom-nav').classList.toggle('has-open-menu',open);});
+$('#bc-mobile-menu').addEventListener('toggle',event=>{const open=event.newState==='open';if(open)positionMobileMenu();$('.bc-bottom-menu').setAttribute('aria-expanded',String(open));$('.bc-bottom-nav').classList.toggle('has-open-menu',open);});
 $('#bc-dialog').addEventListener('click',event=>{const d=event.currentTarget;if(event.target!==d)return;const r=d.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeDialog();});
 document.addEventListener('keydown',event=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k'){event.preventDefault();openSearch();}if(event.key==='Escape')closeNotifications();});
 function setLoginFieldError(input,message){
