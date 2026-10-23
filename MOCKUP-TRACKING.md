@@ -24,8 +24,8 @@
 | 4 | กำลังวิเคราะห์ | ภูมิ | ยังไม่พัฒนา | ยังไม่มี flow วิเคราะห์ |
 | 5 | สรุปวันนี้ | B (โอ๊ค) | เสร็จ / merged | `#/today` · ชุดตั้งต้น commit `ef31c7e` |
 | 6 | รายการปัญหา | ภูมิ | จุดเชื่อมต่อ | `#/issues` |
-| 7 | รายละเอียดปัญหา | B (โอ๊ค) | เสร็จ (รอรีวิว) | [Draft PR #1](https://github.com/SuphatitKKU/brandcare-ai/pull/1) · `#/issues/packaging` |
-| 8 | อนุมัติและส่งข้อความ | B (โอ๊ค) | เสร็จ (รอรีวิว) | [Draft PR #1](https://github.com/SuphatitKKU/brandcare-ai/pull/1) · `#/issues/packaging/approve` |
+| 7 | รายละเอียดปัญหา | B (โอ๊ค) | เสร็จ / merged | [PR #1](https://github.com/SuphatitKKU/brandcare-ai/pull/1) · `#/issues/packaging` |
+| 8 | อนุมัติและส่งข้อความ | B (โอ๊ค) | เสร็จ / merged | [PR #1](https://github.com/SuphatitKKU/brandcare-ai/pull/1) · `#/issues/packaging/approve` |
 | 9 | คอมเมนต์ | หยุ่น | จุดเชื่อมต่อ | `#/comments` |
 | 10 | รายละเอียดคอมเมนต์ | หยุ่น | จุดเชื่อมต่อ | `#/comments/:id` |
 | 11 | ยอดขายและรีวิว | หยุ่น | จุดเชื่อมต่อ | `#/sales` |
@@ -124,9 +124,9 @@
 
 ## งานของคน B (โอ๊ค) — หน้า 7 รายละเอียดปัญหา "กล่องบุบ" และ หน้า 8 อนุมัติและส่งข้อความ
 
-**สถานะ: เสร็จแล้ว (รอตรวจและอนุมัติ / Draft PR #1)**
+**สถานะ: เสร็จและ merge เข้า `main` แล้ว**
 
-หลักฐาน: [Draft PR #1](https://github.com/SuphatitKKU/brandcare-ai/pull/1) · branch `feat/b-dashboard-shared-ui`
+หลักฐาน: [PR #1](https://github.com/SuphatitKKU/brandcare-ai/pull/1) · commit สุดท้าย `4adc87a` · 23 ตุลาคม 2026 (Asia/Bangkok) · branch `feat/b-dashboard-shared-ui`
 
 ### ขอบเขตที่ทำเสร็จ
 
