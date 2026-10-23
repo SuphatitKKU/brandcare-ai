@@ -23,7 +23,7 @@
 | 3 | เชื่อมต่อข้อมูล | ภูมิ | เสร็จ / merged | [PR #8](https://github.com/SuphatitKKU/brandcare-ai/pull/8) · `#/connect-data` |
 | 4 | กำลังวิเคราะห์ | ภูมิ | เสร็จ / merged | [PR #10](https://github.com/SuphatitKKU/brandcare-ai/pull/10) · `#/analyzing` → `#/today` |
 | 5 | สรุปวันนี้ | B (โอ๊ค) | เสร็จ / merged | `#/today` · ชุดตั้งต้น commit `ef31c7e` |
-| 6 | รายการปัญหา | ภูมิ | กำลังทำ | `feat/phum-issues-list` · UI พร้อมตรวจที่ `#/issues` |
+| 6 | รายการปัญหา | ภูมิ | เสร็จ / merged | [PR #12](https://github.com/SuphatitKKU/brandcare-ai/pull/12) · `#/issues` |
 | 7 | รายละเอียดปัญหา | B (โอ๊ค) | เสร็จ / merged | [PR #1](https://github.com/SuphatitKKU/brandcare-ai/pull/1) · `#/issues/packaging` |
 | 8 | อนุมัติและส่งข้อความ | B (โอ๊ค) | เสร็จ / merged | [PR #1](https://github.com/SuphatitKKU/brandcare-ai/pull/1) · `#/issues/packaging/approve` |
 | 9 | คอมเมนต์ | หยุ่น | จุดเชื่อมต่อ | `#/comments` |
@@ -222,7 +222,13 @@
 
 ## งานที่ 5 ของภูมิ — รายการปัญหา (หน้า 6)
 
-**สถานะ: UI พร้อมตรวจ บน `feat/phum-issues-list` ยังไม่ merge**
+**สถานะ: เสร็จและ merge เข้า `main` แล้ว**
+
+หลักฐาน: [PR #12](https://github.com/SuphatitKKU/brandcare-ai/pull/12) · commit `b0762ad` · 23 ตุลาคม 2026 (Asia/Bangkok) · branch `feat/phum-issues-list`
+
+- Rebase กับ origin/main `e9a1359` ไม่มี conflict และเก็บ backup branch ในเครื่อง
+- ตรวจซ้ำหลัง rebase: JavaScript syntax และ diff ผ่าน, 390×844 ไม่ล้นและมีการ์ดครบ 4 เรื่อง ไม่มี console error/warning
+- ส่งด้วย Rebase and merge ผ่าน PR; ไม่มี checks รายงานและ repo ไม่มี CI workflow ใช้ผลตรวจในเครื่องประกอบ
 
 - ใช้ `issueCard()` และข้อมูลปัญหา 4 เรื่องจากชุดกลาง พร้อมระดับความรุนแรง คอมเมนต์ ช่องทาง แนวโน้ม และวันที่เริ่มพบ
 - เพิ่มภาพรวม 4 เรื่อง / 1 เรื่องควรดูแลก่อน / 1 โอกาส และทางลัดไปปัญหากล่องบุบ
