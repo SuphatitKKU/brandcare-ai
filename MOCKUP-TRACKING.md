@@ -300,3 +300,4 @@
 - พรีวิวตรวจ 320×568, 390×844, 768×1024, 1167×716, 1440×900 ไม่มี horizontal overflow; จอเล็กเลื่อนข้อความได้ตามความสูง ไม่ย่อจนอ่านยาก
 - JavaScript syntax และ git diff --check ผ่าน ไม่พบ console error/warning ใน browser
 - ยังไม่ทดสอบมือถือจริงหรือการเปลี่ยน reduced motion จากระบบปฏิบัติการ ขอบเขตยังเป็น mockup ไม่มี AI หรือการส่งข้อความจริง
+- หลักฐานส่งงาน: [PR #15](https://github.com/SuphatitKKU/brandcare-ai/pull/15) รวมการปรับ UI และผลตรวจรอบนี้
