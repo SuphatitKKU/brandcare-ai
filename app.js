@@ -2,6 +2,7 @@ import {brand,metrics,categories,comments,issues,products,navigation} from './sh
 import {shell,icon,button,card,emptyState,listRow,escapeHTML,openDialog,closeDialog,toast,reveal,countTo,mobileMenu,mobileDestinations} from './shared/ui.js';
 import {dashboard,intro} from './dashboard.js';
 import {componentGallery} from './components.js';
+import {commentsPage,setupComments} from './comments.js';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
@@ -31,6 +32,7 @@ function render(){
  closeMobileMenu();cleanupReveal?.();if($('#bc-dialog').open)closeDialog();closeNotifications();
  const hash=decodeURIComponent(location.hash.replace(/^#\/?/,''));const path=hash.split('?')[0];const parts=(path||'today').split('/');route=parts[0];
  if(route==='today')root.innerHTML=dashboard();
+ else if(route==='comments'&&!parts[1]){root.innerHTML=commentsPage(new URLSearchParams(hash.split('?')[1]||''));setupComments(root);}
  else if(route==='components')root.innerHTML=componentGallery();
  else if(futureRoutes[route])root.innerHTML=futurePage(parts);
  else root.innerHTML=`<div class="bc-page">${intro('ไม่พบหน้าที่ต้องการ','เลือกเมนูด้านบนเพื่อกลับไปดูแลร้าน',{date:false})}${emptyState({title:'ลิงก์นี้ยังไม่มีในแผน',action:button('กลับสรุปวันนี้',{href:'#/today'})})}</div>`;
