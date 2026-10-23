@@ -4,7 +4,7 @@ import {dashboard,intro} from './dashboard.js';
 import {componentGallery} from './components.js';
 import {loginPage,googleAccountChooser} from './login.js';
 import {brandSetupPage,mountBrandSetup} from './brand-setup.js?v=14';
-import {connectDataPage,mountConnectData} from './connect-data.js?v=9';
+import {connectDataPage,mountConnectData} from './connect-data.js?v=10';
 import {analysisPage,mountAnalysis} from './analysis.js?v=4';
 import {issueDetailPage,approvalModalContent} from './issue-detail.js';
 import {issuesPage,mountIssues,issueEvidencePage} from './issues.js';
