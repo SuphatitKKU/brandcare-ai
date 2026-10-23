@@ -21,7 +21,7 @@
 | 1 | ยินดีต้อนรับ / Login | ภูมิ | เสร็จ / merged | [PR #2](https://github.com/SuphatitKKU/brandcare-ai/pull/2), [PR #3](https://github.com/SuphatitKKU/brandcare-ai/pull/3) · `#/login` |
 | 2 | ตั้งค่าแบรนด์ | ภูมิ | เสร็จ / merged | [PR #4](https://github.com/SuphatitKKU/brandcare-ai/pull/4) · `#/brand-setup` |
 | 3 | เชื่อมต่อข้อมูล | ภูมิ | เสร็จ / merged | [PR #8](https://github.com/SuphatitKKU/brandcare-ai/pull/8) · `#/connect-data` |
-| 4 | กำลังวิเคราะห์ | ภูมิ | กำลังทำ | `feat/phum-analysis-onboarding` · Animation และทางเข้าหน้าหลัก พร้อมตรวจ |
+| 4 | กำลังวิเคราะห์ | ภูมิ | เสร็จ / merged | [PR #10](https://github.com/SuphatitKKU/brandcare-ai/pull/10) · `#/analyzing` → `#/today` |
 | 5 | สรุปวันนี้ | B (โอ๊ค) | เสร็จ / merged | `#/today` · ชุดตั้งต้น commit `ef31c7e` |
 | 6 | รายการปัญหา | ภูมิ | จุดเชื่อมต่อ | `#/issues` |
 | 7 | รายละเอียดปัญหา | B (โอ๊ค) | เสร็จ / merged | [PR #1](https://github.com/SuphatitKKU/brandcare-ai/pull/1) · `#/issues/packaging` |
@@ -196,7 +196,9 @@
 
 ## งานที่ 4 ของภูมิ — กำลังวิเคราะห์และเข้าใช้งานหน้าหลัก
 
-**สถานะ: UI พร้อมตรวจ บน `feat/phum-analysis-onboarding` ยังไม่ merge**
+**สถานะ: เสร็จและ merge เข้า `main` แล้ว**
+
+หลักฐาน: [PR #10](https://github.com/SuphatitKKU/brandcare-ai/pull/10) · commit `70b6891` · 23 ตุลาคม 2026 (Asia/Bangkok) · branch `feat/phum-analysis-onboarding`
 
 - แทนจุดเชื่อมต่อ `#/analyzing` ด้วยหน้าความคืบหน้า 4 ขั้น: รวบรวมคอมเมนต์ → อ่านรีวิว → เทียบยอดขาย → สรุปเรื่องที่ควรทำ
 - โลโก้ผู้ช่วยและไอคอนลอยพร้อมวงโคจร แถบเปอร์เซ็นต์ ตัวเลขไล่ขึ้น และเครื่องหมายถูกตามขั้นตอน
@@ -213,6 +215,9 @@
 - ตรวจ syntax ของ analysis.js, app.js, connect-data.js และ git diff --check ผ่าน ไม่พบ console error / warning ใน browser
 - Smoke check หน้า Login, ฟอร์มหน้า 2, หน้าเชื่อมต่อ และหน้ารายละเอียดปัญหาของทีมผ่าน; รองรับการตัดบรรทัดชื่อร้านยาว
 - Responsive ตรวจผ่าน viewport จำลอง ยังไม่ทดสอบมือถือจริง; reduced motion ตรวจเงื่อนไขในโค้ด ยังไม่ทดสอบการเปลี่ยนค่าผ่านระบบปฏิบัติการจริง
+- ส่งผ่าน PR #10 ด้วย Rebase and merge หลังตรวจฐาน origin/main `1d6ec1a` ไม่มี conflict และเก็บ backup branch ในเครื่อง
+- ตรวจซ้ำหลัง rebase: JavaScript syntax / diff ผ่าน, มือถือ 390 × 844 ไม่ล้นทั้งสองแนว และ redirect ถึงหน้าสรุปวันนี้โดยไม่พบ console error / warning
+- PR #10 ไม่มี checks รายงาน และ repository ไม่มี CI workflow จึงใช้ผลตรวจในเครื่องประกอบการ merge
 - ข้อจำกัด: animation จำลองขั้นตอนบนข้อมูลกลาง ยังไม่ได้ดึงข้อมูลหรือเรียก AI จริง และไม่ใช่การสร้าง authentication session
 
 ## วิธีอัปเดตเอกสารนี้
