@@ -19,9 +19,9 @@ export const comments = Object.freeze([
 ]);
 export const issues = Object.freeze([
  {id:'packaging',title:'กล่องบุบ ทองม้วนแตก',subtitle:'คำบ่นเพิ่มขึ้นหลังเปลี่ยนเจ้าขนส่ง',severity:'critical',count:23,period:'7 วัน',growth:'+340%',platforms:['shopee','tiktok','facebook'],start:'16 ต.ค. 2026',trend:[9,9,12,16,25,36,53]},
- {id:'delivery',title:'ส่งช้ากว่าเดิม',subtitle:'ขนส่ง B ใช้เวลาเฉลี่ย 4 วัน จากเดิม 2 วัน',severity:'medium',count:9,period:'7 วัน',platforms:['facebook'],trend:[9,12,10,17,19,24,28]},
- {id:'sweet',title:'กล้วยตากหวานเกินไป',subtitle:'เสียงลูกค้าเกี่ยวกับรสชาติกล้วยตากอบน้ำผึ้ง',severity:'low',count:4,period:'30 วัน',platforms:['facebook'],trend:[16,13,15,12,14,11,12]},
- {id:'durian',title:'ลูกค้าขอรสทุเรียน',subtitle:'โอกาสสินค้าใหม่ · มีคนกดไลก์รวม 230',severity:'opportunity',count:15,period:'30 วัน',platforms:['instagram'],trend:[8,12,14,19,23,29,34]}
+ {id:'delivery',title:'ส่งช้ากว่าเดิม',subtitle:'ขนส่ง B ใช้เวลาเฉลี่ย 4 วัน จากเดิม 2 วัน',severity:'medium',count:9,period:'7 วัน',platforms:['facebook'],start:'21 ต.ค. 2026',trend:[9,12,10,17,19,24,28]},
+ {id:'sweet',title:'กล้วยตากหวานเกินไป',subtitle:'เสียงลูกค้าเกี่ยวกับรสชาติกล้วยตากอบน้ำผึ้ง',severity:'low',count:4,period:'30 วัน',platforms:['facebook'],start:'13 ต.ค. 2026',trend:[16,13,15,12,14,11,12]},
+ {id:'durian',title:'ลูกค้าขอรสทุเรียน',subtitle:'โอกาสสินค้าใหม่ · มีคนกดไลก์รวม 230',severity:'opportunity',count:15,period:'30 วัน',platforms:['instagram'],start:'16 ต.ค. 2026',trend:[8,12,14,19,23,29,34]}
 ]);
 export const products = Object.freeze([{id:'butter',name:'ทองม้วนกรอบ รสเนยสด',size:'กระปุก 150 กรัม',price:89},{id:'sesame',name:'ทองม้วนกรอบ รสงาดำ',size:'กระปุก 150 กรัม',price:89},{id:'banana',name:'กล้วยตากอบน้ำผึ้ง',size:'ถุง 200 กรัม',price:69},{id:'rice',name:'ข้าวแต๋นน้ำแตงโม',size:'ถุง 10 ชิ้น',price:59},{id:'gift',name:'ชุดของขวัญขนมไทย',size:'กล่องรวม 4 อย่าง',price:390}]);
 export const replyDraft='ขอโทษคุณลูกค้ามาก ๆ เลยค่ะ 🙏 บ้านสวนเพิ่งเปลี่ยนขนส่ง แล้วกล่องไม่แข็งแรงพอ ตอนนี้เปลี่ยนเป็นกล่อง 2 ชั้นแล้วนะคะ ขอส่งคูปองลด ฿20 ให้ใช้ครั้งหน้าค่ะ หวังว่าจะได้ดูแลคุณลูกค้าอีกครั้งนะคะ';
