@@ -7,7 +7,8 @@ import {brandSetupPage,mountBrandSetup} from './brand-setup.js?v=14';
 import {connectDataPage,mountConnectData} from './connect-data.js?v=9';
 import {analysisPage,mountAnalysis} from './analysis.js?v=4';
 import {issueDetailPage,approvalModalContent} from './issue-detail.js?v=1';
-import {commentsPage,setupComments,relatedIssueSummaryPage,showCommentDetail,resetCommentDetailDialog,handleCommentAction} from './comments.js?v=2';
+import {commentsPage,setupComments,relatedIssueSummaryPage,showCommentDetail,resetCommentDetailDialog,handleCommentAction} from './comments.js?v=4';
+import {salesPage,aiSalesPage,salesReviewDetailPage} from './sales.js?v=15';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
@@ -110,13 +111,22 @@ function render(){
   cleanupPage=mountAnalysis(root);
  } else if(route==='today') {
   root.innerHTML=dashboard();
+ } else if(route==='sales'&&!subId) {
+  if(params.get('view')==='reviews'&&params.get('channel')==='line'){
+   params.set('channel','all');
+   history.replaceState(history.state,'',`#/${route}?${params.toString()}`);
+  }
+  root.innerHTML=salesPage(params);
+ } else if(route==='ai'&&params.get('from')==='sales') {
+  root.innerHTML=aiSalesPage(params);
  } else if(route==='components') {
   root.innerHTML=componentGallery();
   } else if(route==='comments') {
-   if(subId&&params.get('from')==='issues/packaging') root.innerHTML=issueDetailPage();
+   if(subId&&params.get('from')==='sales-review') root.innerHTML=salesReviewDetailPage(subId,params);
+   else if(subId&&params.get('from')==='issues/packaging') root.innerHTML=issueDetailPage();
    else if(subId&&params.get('from')==='ai') root.innerHTML=futurePage(['ai']);
    else {root.innerHTML=commentsPage(params);setupComments(root);}
-   if(subId)showCommentDetail(subId);
+   if(subId&&params.get('from')!=='sales-review')showCommentDetail(subId);
   } else if(isPackagingIssue) {
   root.innerHTML=issueDetailPage({status:isTracking?'tracking':'new'});
   if(isApprove) {
@@ -132,7 +142,7 @@ function render(){
   root.innerHTML=`<div class="bc-page">${intro('ไม่พบหน้าที่ต้องการ','เลือกเมนูด้านบนเพื่อกลับไปดูแลร้าน',{date:false})}${emptyState({title:'ลิงก์นี้ยังไม่มีในแผน',action:button('กลับสรุปวันนี้',{href:'#/today'})})}</div>`;
  }
 
- const pageTitle=route==='login'?'เข้าสู่ระบบ':route==='brand-setup'?'ตั้งค่าแบรนด์':route==='connect-data'?'เชื่อมต่อข้อมูล':route==='analyzing'?'วิเคราะห์ข้อมูล':route==='today'?'สรุปวันนี้':route==='components'?'ชุดคอมโพเนนต์':route==='comments'?(subId?'รายละเอียดคอมเมนต์':'คอมเมนต์'):route==='issues'&&subId?issues.find(issue=>issue.id===subId)?.title||'รายละเอียดปัญหา':isPackagingIssue?(isTracking?'ติดตามผล: กล่องบุบ (ผลจำลอง)':'รายละเอียดปัญหา: กล่องบุบ'):futureRoutes[route]?.title||'ไม่พบหน้า';
+ const pageTitle=route==='login'?'เข้าสู่ระบบ':route==='brand-setup'?'ตั้งค่าแบรนด์':route==='connect-data'?'เชื่อมต่อข้อมูล':route==='analyzing'?'วิเคราะห์ข้อมูล':route==='today'?'สรุปวันนี้':route==='components'?'ชุดคอมโพเนนต์':route==='comments'?(subId?(params.get('from')==='sales-review'?'รายละเอียดรีวิว':'รายละเอียดคอมเมนต์'):'คอมเมนต์'):route==='issues'&&subId?issues.find(issue=>issue.id===subId)?.title||'รายละเอียดปัญหา':isPackagingIssue?(isTracking?'ติดตามผล: กล่องบุบ (ผลจำลอง)':'รายละเอียดปัญหา: กล่องบุบ'):futureRoutes[route]?.title||'ไม่พบหน้า';
  document.title=pageTitle+' · BrandCare AI';
 
  $$('.bc-nav-link').forEach(link=>{const active=link.getAttribute('href')==='#/'+route;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
