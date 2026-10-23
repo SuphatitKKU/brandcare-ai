@@ -1,5 +1,5 @@
 import {brand,metrics,comments,issues,products,categories,platforms,replyDraft} from './shared/data.js';
-import {icon,button,badge,platform,severity,status,sparkline,card,commentCard,metricCard,emptyState,escapeHTML,openDialog,closeDialog,toast,countTo} from './shared/ui.js';
+import {icon,button,badge,platform,severity,status,sparkline,card,commentCard,metricCard,emptyState,escapeHTML,openDialog,closeDialog,toast,countTo} from './shared/ui.js?v=2';
 import {intro} from './dashboard.js';
 
 // ข้อมูลจำลองผู้รับ 23 รายชื่อสำหรับหน้า 8 อ้างอิง MOCKUP-PAGES.md ข้อ 6.5 (Shopee 14, TikTok 6, Facebook 3)
@@ -197,7 +197,7 @@ export function issueDetailPage(issueId='packaging', {tracking=false}={}){
       ${icon('sparkles')}<strong>สิ่งที่ AI วิเคราะห์:</strong> ใต้คลิปนี้มีคนถาม “ซื้อที่ไหน” ถึง 37 คน แต่เริ่มมีผู้ซื้อรายอื่นเข้ามาคอมเมนต์กังวลเรื่องการแพ็กของ
      </div>
      <div class="bc-viral-actions">
-      <a href="#/comments/2" class="bc-button bc-button--soft bc-button--small">
+      <a href="#/comments/2?from=issues/packaging" class="bc-button bc-button--soft bc-button--small">
        ${icon('message')}<span>ดูรายละเอียดคอมเมนต์คลิปนี้ (หน้า 10)</span>
       </a>
       <a href="#/comments?category=intent" class="bc-button bc-button--text bc-button--small">
@@ -447,7 +447,7 @@ export function issueDetailPage(issueId='packaging', {tracking=false}={}){
      <span>คัดกรอง 4 คอมเมนต์สำคัญตาม MOCKUP-PAGES.md ข้อ 6.7</span>
     </div>
     <div class="bc-comments-grid">
-     ${packagingComments.map(c=>`<div class="bc-reveal">${commentCard(c)}</div>`).join('')}
+     ${packagingComments.map(c=>`<div class="bc-reveal">${commentCard(c,{from:'issues/packaging'})}</div>`).join('')}
     </div>
    </section>
 

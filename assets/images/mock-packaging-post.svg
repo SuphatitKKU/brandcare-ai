@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">ภาพจำลองกล่องขนมบุบ</title>
+  <desc id="desc">ภาพประกอบกล่องกระดาษและทองม้วนสำหรับโพสต์จำลอง</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff5e8"/><stop offset="1" stop-color="#f3e6d2"/></linearGradient>
+    <linearGradient id="box" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d39a5e"/><stop offset="1" stop-color="#a96939"/></linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <circle cx="1000" cy="110" r="140" fill="#fff" opacity=".42"/>
+  <ellipse cx="590" cy="600" rx="365" ry="55" fill="#806346" opacity=".14"/>
+  <path d="m300 264 275-129 325 113-280 151z" fill="#e9bd8d"/>
+  <path d="m300 264 320 135v250L300 505z" fill="url(#box)"/>
+  <path d="m620 399 280-151v255L620 649z" fill="#bc7d47"/>
+  <path d="m300 264 104-126 282 113-66 148z" fill="#c68a51"/>
+  <path d="m620 399 66-148 214-111 90 109z" fill="#d6a16c"/>
+  <path d="m620 399 280-151 90 48-288 171z" fill="#9b6038"/>
+  <path d="m300 264 27 14-14 92-13 4z" fill="#86502f" opacity=".7"/>
+  <path d="m620 399 32 14v203l-32 33z" fill="#8e572f" opacity=".42"/>
+  <g fill="#e6b45f" stroke="#b47a34" stroke-width="9">
+    <rect x="738" y="405" width="54" height="130" rx="25" transform="rotate(-18 738 405)"/>
+    <rect x="800" y="387" width="54" height="130" rx="25" transform="rotate(-18 800 387)"/>
+    <rect x="857" y="369" width="54" height="130" rx="25" transform="rotate(-18 857 369)"/>
+  </g>
+  <text x="74" y="82" fill="#786c5f" font-family="Arial,sans-serif" font-size="27" letter-spacing="5">ตัวอย่างภาพจำลอง</text>
+  <text x="76" y="665" fill="#8e6745" font-family="Arial,sans-serif" font-size="23">ภาพประกอบโพสต์ · ไม่ใช่ภาพสินค้าจริง</text>
+</svg>

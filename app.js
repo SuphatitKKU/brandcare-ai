@@ -2,7 +2,7 @@ import {brand,metrics,categories,comments,issues,products,navigation} from './sh
 import {shell,icon,button,card,emptyState,listRow,escapeHTML,openDialog,closeDialog,toast,reveal,countTo,mobileMenu,mobileDestinations} from './shared/ui.js';
 import {dashboard,intro} from './dashboard.js';
 import {componentGallery} from './components.js';
-import {commentsPage,setupComments} from './comments.js';
+import {commentsPage,setupComments,relatedIssueSummaryPage,showCommentDetail,resetCommentDetailDialog,handleCommentAction} from './comments.js?v=2';
 import {loginPage,googleAccountChooser} from './login.js';
 import {brandSetupPage,mountBrandSetup} from './brand-setup.js?v=14';
 import {connectDataPage,mountConnectData} from './connect-data.js?v=10';
@@ -19,6 +19,8 @@ let cleanupReveal;
 let cleanupPage;
 let route='today';
 let loginTransitionTimer;
+let commentsListScrollY=null;
+let previousRouteHash=location.hash;
 
 // หน้า 13–17 ใช้ shell ร่วมกันจาก shared/ui.js; หน้าที่ทีมยังไม่ส่งคงเป็นจุดเชื่อมต่อ
 const futureRoutes={
@@ -33,7 +35,7 @@ const futureRoutes={
 function destinationPage(parts){
  const name=parts[0];
  if(name==='comments'&&parts[1])return {title:'รายละเอียดคอมเมนต์: #'+parts[1],page:10,owner:'หยุ่น',next:{href:'#/issues/packaging',label:'ดูปัญหาที่เกี่ยวข้อง (หน้า 7)'}};
- if(name==='sales'&&parts[1])return {title:'รายละเอียดสินค้า: ทองม้วนกรอบ',page:12,owner:'หยุ่น',next:{href:'#/comments/1',label:'ดูรีวิวที่เกี่ยวข้อง (หน้า 10)'}};
+ if(name==='sales'&&parts[1])return {title:'รายละเอียดสินค้า: ทองม้วนกรอบ',page:12,owner:'หยุ่น',next:{href:'#/sales',label:'กลับยอดขายและรีวิว (หน้า 11)'}};
  if(name==='festivals'&&parts[1])return {title:'แผนคอนเทนต์เทศกาล: 11.11',page:14,owner:'เจด้า',next:{href:'#/festivals',label:'กลับปฏิทินเทศกาล (หน้า 13)'}};
  return futureRoutes[name];
 }
@@ -41,7 +43,7 @@ function destinationPage(parts){
 function futurePage(parts){
  const target=destinationPage(parts);
  if(!target) return `<div class="bc-page">${intro('ไม่พบหน้าที่ต้องการ','เลือกเมนูด้านบนเพื่อกลับไปดูแลร้าน',{date:false})}${emptyState({title:'ลิงก์นี้ยังไม่มีในแผน',action:button('กลับสรุปวันนี้',{href:'#/today'})})}</div>`;
- const actions=`<div class="bc-dialog-actions" style="justify-content:center;margin-top:20px;gap:12px">${target.next?button(target.next.label,{href:target.next.href,iconName:'arrow',variant:'primary'}):''}${button('กลับสรุปวันนี้',{href:'#/today',variant:'secondary',iconName:'arrow'})}</div>`;
+ const actions=`<div class="bc-dialog-actions" style="justify-content:center;margin-top:20px;gap:12px">${target.next?button(target.next.label,{href:target.next.href,iconName:'arrow',variant:'primary'}):''}${target.page===15?button('ดูหลักฐานคอมเมนต์ตัวอย่าง',{href:'#/comments/2?from=ai',iconName:'message',variant:'soft'}):''}${button('กลับสรุปวันนี้',{href:'#/today',variant:'secondary',iconName:'arrow'})}</div>`;
  return `<div class="bc-page">${intro(target.title,'เตรียมโครงหน้าร่วมและจุดเชื่อมต่อไว้แล้ว สำหรับงานของทีม',{eyebrow:'BrandCare AI · จุดเชื่อมต่อหน้า '+target.page+(target.owner?' ('+target.owner+')':''),date:false})}${card({title:'หน้านี้จะทำในรอบถัดไป',eyebrow:'ขอบเขต: จุดเชื่อมต่อระบบและโครงสร้างร่วม',content:emptyState({title:'Header และ Shared UI พร้อมแล้ว รอพัฒนาเนื้อหาในรอบถัดไป',description:target.owner?('ผู้รับผิดชอบ: '+target.owner+' · ลิงก์นี้เชื่อมต่อตาม Flow ข้อ 3 ใน MOCKUP-PAGES.md เรียบร้อยแล้ว'):'ปุ่มนี้พามาถูกตำแหน่งตามแผน',iconName:parts[0]==='ai'?'sparkles':parts[0]==='line'?'bell':parts[0]==='festivals'?'calendar':parts[0]==='sales'?'box':'link',action:actions})})}${target.page===17?button('แก้ไขข้อมูลแบรนด์',{href:'#/brand-setup?from=settings',variant:'soft'})+button('จัดการบัญชีที่เชื่อม',{href:'#/connect-data?from=settings',variant:'soft'}):''}<div class="bc-context-note">${icon('shield')}หน้า ${target.page}${target.owner?' ('+target.owner+')':''} ยังไม่ถือว่าเสร็จ · โครงสร้างและจุดเชื่อมต่อพร้อมส่งต่อให้ทีม</div></div>`;
 }
 
@@ -59,9 +61,33 @@ function positionMobileMenu(){
 }
 function closeNotifications(){$('#bc-notifications').hidden=true;$('.bc-notification-trigger').setAttribute('aria-expanded','false');}
 
+function commentReturnHref(){
+ const [path,query='']=location.hash.replace(/^#\/?/,'').split('?');
+ const [rootPath,commentId]=path.split('/');
+ const params=new URLSearchParams(query);
+ if(rootPath!=='comments'||!commentId)return '#/comments';
+ const origin=params.get('from');
+ if(origin==='issues/packaging')return '#/issues/packaging';
+ if(origin==='ai')return '#/ai';
+ const listParams=new URLSearchParams();
+ for(const key of ['issue','category'])if(params.has(key))listParams.set(key,params.get(key));
+ return '#/comments'+(listParams.size?'?'+listParams.toString():'');
+}
+
+function closeActiveDialog(){
+ const dialog=$('#bc-dialog');
+ const isCommentDetail=dialog.classList.contains('bc-dialog--comment-detail');
+ const returnHref=isCommentDetail?commentReturnHref():'';
+ if(isCommentDetail)resetCommentDetailDialog();
+ if(dialog.open)closeDialog();
+ if(isCommentDetail&&location.hash!==returnHref)location.hash=returnHref;
+}
+
 function render(){
+ const cameFromCommentDetail=previousRouteHash.replace(/^#\/?/,'').startsWith('comments/');
+ previousRouteHash=location.hash;
  clearTimeout(loginTransitionTimer);cleanupPage?.();cleanupPage=undefined;
- closeMobileMenu();cleanupReveal?.();if($('#bc-dialog').open)closeDialog();closeNotifications();
+ closeMobileMenu();cleanupReveal?.();if($('#bc-dialog').open)closeDialog();resetCommentDetailDialog();closeNotifications();
  const hash=decodeURIComponent(location.hash.replace(/^#\/?/,''));
  const [rawPath,queryString]=hash.split('?');
  const parts=(rawPath||'login').split('/');
@@ -102,22 +128,26 @@ function render(){
  } else if(['festivals','ai','line','settings'].includes(route)) {
   root.innerHTML=route==='festivals'?(subId?festivalPlanPage(subId):festivalsPage()):route==='ai'?aiPage():route==='line'?linePage():settingsPage();
   cleanupPage=mountJayda(root,route,subId);
- } else if(route==='comments'&&!subId) {
-  root.innerHTML=commentsPage(params);
-  setupComments(root);
+ } else if(route==='comments') {
+  if(subId&&params.get('from')==='issues/packaging') root.innerHTML=issueDetailPage('packaging',{tracking:isTracking});
+  else if(subId&&params.get('from')==='ai') root.innerHTML=futurePage(['ai']);
+  else {root.innerHTML=commentsPage(params);setupComments(root);}
+  if(subId)showCommentDetail(subId);
  } else if(futureRoutes[route]||destinationPage(parts)) {
   root.innerHTML=futurePage(parts);
  } else {
   root.innerHTML=`<div class="bc-page">${intro('ไม่พบหน้าที่ต้องการ','เลือกเมนูด้านบนเพื่อกลับไปดูแลร้าน',{date:false})}${emptyState({title:'ลิงก์นี้ยังไม่มีในแผน',action:button('กลับสรุปวันนี้',{href:'#/today'})})}</div>`;
  }
 
- const pageTitle=route==='login'?'เข้าสู่ระบบ':route==='brand-setup'?'ตั้งค่าแบรนด์':route==='connect-data'?'เชื่อมต่อข้อมูล':route==='analyzing'?'วิเคราะห์ข้อมูล':route==='today'?'สรุปวันนี้':route==='components'?'ชุดคอมโพเนนต์':isPackagingIssue?(isTracking?'ติดตามผล: กล่องบุบ (ผลจำลอง)':'รายละเอียดปัญหา: กล่องบุบ'):futureRoutes[route]?.title||'ไม่พบหน้า';
+ const pageTitle=route==='comments'?(subId?'รายละเอียดคอมเมนต์':'คอมเมนต์'):route==='login'?'เข้าสู่ระบบ':route==='brand-setup'?'ตั้งค่าแบรนด์':route==='connect-data'?'เชื่อมต่อข้อมูล':route==='analyzing'?'วิเคราะห์ข้อมูล':route==='today'?'สรุปวันนี้':route==='components'?'ชุดคอมโพเนนต์':isPackagingIssue?(isTracking?'ติดตามผล: กล่องบุบ (ผลจำลอง)':'รายละเอียดปัญหา: กล่องบุบ'):futureRoutes[route]?.title||'ไม่พบหน้า';
  document.title=(route==='issues'&&!isPackagingIssue?'รายการปัญหา':pageTitle)+' · BrandCare AI';
 
  $$('.bc-nav-link').forEach(link=>{const active=link.getAttribute('href')==='#/'+route;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
  $$('.bc-bottom-link').forEach(link=>{const active=link.dataset.route===route;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
  $('.bc-bottom-menu').classList.toggle('is-active',!mobileDestinations.some(n=>n.id===route));
- moveIndicator();cleanupReveal=reveal(root);window.scrollTo({top:0,behavior:'instant'});
+ moveIndicator();cleanupReveal=reveal(root);
+ if(route==='comments'&&!subId&&cameFromCommentDetail&&commentsListScrollY!==null){window.scrollTo({top:commentsListScrollY,behavior:'instant'});commentsListScrollY=null;}
+ else window.scrollTo({top:0,behavior:'instant'});
  if(route==='today'){const values=$$('.bc-metric-number>strong');countTo(values[0],metrics.complaints);countTo(values[1],metrics.revenue,{prefix:'฿'});countTo(values[2],metrics.rating,{decimals:1});countTo($('[data-count]'),metrics.carrierShare);}
  if(isPackagingIssue){
   const compVal=$('#issue-count-val');if(compVal)countTo(compVal,isTracking?4:23);
@@ -149,7 +179,11 @@ function demoDialog(drawer=false){openDialog(`<h2>${drawer?'แผงราย�
 
 document.addEventListener('click',event=>{
  if(event.target.closest('.bc-skip')){event.preventDefault();root.focus({preventScroll:true});root.scrollIntoView({behavior:'smooth',block:'start'});return;}
+ const commentLink=event.target.closest('a[href^="#/comments/"]');
+ if(commentLink&&route==='comments'&&!$$('.bc-dialog--comment-detail[open]').length)commentsListScrollY=window.scrollY;
  const action=event.target.closest('[data-action]')?.dataset.action;
+  if(handleCommentAction(action,event))return;
+  if(action==='close-comment-detail'){closeActiveDialog();return;}
  if(action==='login-mode'){if(event.target.closest('[data-mode]').getAttribute('aria-pressed')==='true')return;const signup=event.target.closest('[data-mode]').dataset.mode==='signup';$$('[data-action="login-mode"]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.mode===(signup?'signup':'signin'))));$('#login-heading').textContent=signup?'เริ่มต้นดูแลแบรนด์ของคุณ':'ยินดีต้อนรับกลับมา';$('.bc-login-description').textContent=signup?'สร้างบัญชี แล้วมารู้จักร้านของคุณกัน':'ให้ทุกวันของการดูแลร้าน เป็นเรื่องง่ายขึ้น';$('.bc-login-submit').textContent=signup?'สมัครสมาชิก':'เข้าสู่ระบบ';$('.bc-login-options').hidden=signup;$('#bc-login-form').reset();$('#bc-login-password').type='password';$('[data-action="login-password"]').setAttribute('aria-label','แสดงรหัสผ่าน');$('[data-action="login-password"]').setAttribute('aria-pressed','false');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){[$('#login-heading'),$('.bc-login-description'),$('#bc-login-form')].forEach(el=>{el.getAnimations().forEach(a=>a.cancel());el.animate([{opacity:0,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}],{duration:220,easing:'ease-out'});});}}
  if(action==='login-password'){const input=$('#bc-login-password');const visible=input.type==='password';input.type=visible?'text':'password';const trigger=event.target.closest('[data-action]');trigger.setAttribute('aria-label',visible?'ซ่อนรหัสผ่าน':'แสดงรหัสผ่าน');trigger.setAttribute('aria-pressed',String(visible));}
  if(action==='login-forgot')openDialog(`<h2>ลืมรหัสผ่าน?</h2><p class="bc-dialog-description">การกู้คืนรหัสผ่านยังไม่เปิดให้บริการ</p><div class="bc-dialog-actions">${button('กลับไปเข้าสู่ระบบ',{action:'close-dialog'})}</div>`,{label:'ลืมรหัสผ่าน'});
@@ -161,7 +195,7 @@ document.addEventListener('click',event=>{
  if(action==='close-notifications')closeNotifications();
  if(action==='profile'){closeNotifications();openDialog(`<h2>${brand.name}</h2><p class="bc-dialog-description">${brand.location} · ขายออนไลน์ตั้งแต่ปี 2022</p><div class="bc-detail-row"><span>เจ้าของร้าน</span><strong>${brand.owner}</strong></div><div class="bc-detail-row"><span>น้ำเสียงของแบรนด์</span><strong>${brand.tone}</strong></div><div class="bc-detail-row"><span>คอมเมนต์ที่ AI อ่านในตัวอย่าง</span><strong>1,284 รายการ</strong></div><p class="bc-dialog-description">ร้านและผู้ใช้เป็นข้อมูลสมมติตามแผน ข้อมูลอ้างอิงทั้งหมดอยู่ในไฟล์กลาง</p><div class="bc-dialog-actions">${button('ออกจากระบบ',{href:'#/login',variant:'danger'})}${button('ไปตั้งค่า',{href:'#/settings',variant:'soft'})}${button('ปิด',{action:'close-dialog',variant:'secondary'})}</div>`,{label:'ข้อมูลร้านขนมบ้านสวน'});}
  if(action==='login-use-email'){closeDialog();$('#bc-login-address').focus();}
- if(action==='close-dialog')closeDialog();
+  if(action==='close-dialog')closeActiveDialog();
  if(action==='open-approval'){
   closeNotifications();
   closeMobileMenu();
@@ -186,7 +220,9 @@ document.addEventListener('click',event=>{
 });
 
 $('#bc-mobile-menu').addEventListener('toggle',event=>{const open=event.newState==='open';if(open)positionMobileMenu();$('.bc-bottom-menu').setAttribute('aria-expanded',String(open));$('.bc-bottom-nav').classList.toggle('has-open-menu',open);});
-$('#bc-dialog').addEventListener('click',event=>{const d=event.currentTarget;if(event.target!==d)return;const r=d.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeDialog();});
+$('#bc-dialog').addEventListener('click',event=>{const d=event.currentTarget;if(event.target!==d)return;const r=d.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeActiveDialog();});
+$('#bc-dialog').addEventListener('close',event=>{const dialog=event.currentTarget;const id=dialog.dataset.commentDetailId;if(!id)return;const [path]=location.hash.replace(/^#\/?/,'').split('?');if(path===`comments/${id}`)location.hash=commentReturnHref();resetCommentDetailDialog();});
+$('#bc-dialog').addEventListener('cancel',event=>{const preview=$('#bc-dialog [data-comment-source-preview]');if(preview&&!preview.hidden){event.preventDefault();handleCommentAction('close-comment-source');}});
 document.addEventListener('keydown',event=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k'){event.preventDefault();openSearch();}if(event.key==='Escape')closeNotifications();});
 
 function setLoginFieldError(input,message){
