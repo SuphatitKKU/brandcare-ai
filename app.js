@@ -4,7 +4,8 @@ import {dashboard,intro} from './dashboard.js';
 import {componentGallery} from './components.js';
 import {loginPage,googleAccountChooser} from './login.js';
 import {brandSetupPage,mountBrandSetup} from './brand-setup.js?v=14';
-import {connectDataPage,mountConnectData,analysisHandoff} from './connect-data.js?v=9';
+import {connectDataPage,mountConnectData} from './connect-data.js?v=9';
+import {analysisPage,mountAnalysis} from './analysis.js?v=4';
 import {issueDetailPage,approvalModalContent} from './issue-detail.js';
 
 const $=(selector,root=document)=>root.querySelector(selector);
@@ -78,7 +79,8 @@ function render(){
   root.innerHTML=connectDataPage();
   cleanupPage=mountConnectData(root);
  } else if(route==='analyzing') {
-  root.innerHTML=analysisHandoff();
+  root.innerHTML=analysisPage();
+  cleanupPage=mountAnalysis(root);
  } else if(route==='today') {
   root.innerHTML=dashboard();
  } else if(route==='components') {
