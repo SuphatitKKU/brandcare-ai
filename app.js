@@ -2,6 +2,7 @@ import {brand,metrics,categories,comments,issues,products,navigation} from './sh
 import {shell,icon,button,card,emptyState,listRow,escapeHTML,openDialog,closeDialog,toast,reveal,countTo,mobileMenu,mobileDestinations} from './shared/ui.js';
 import {dashboard,intro} from './dashboard.js';
 import {componentGallery} from './components.js';
+import {commentsPage,setupComments} from './comments.js';
 import {loginPage,googleAccountChooser} from './login.js';
 import {brandSetupPage,mountBrandSetup} from './brand-setup.js?v=14';
 import {connectDataPage,mountConnectData} from './connect-data.js?v=10';
@@ -101,6 +102,9 @@ function render(){
  } else if(['festivals','ai','line','settings'].includes(route)) {
   root.innerHTML=route==='festivals'?(subId?festivalPlanPage(subId):festivalsPage()):route==='ai'?aiPage():route==='line'?linePage():settingsPage();
   cleanupPage=mountJayda(root,route,subId);
+ } else if(route==='comments'&&!subId) {
+  root.innerHTML=commentsPage(params);
+  setupComments(root);
  } else if(futureRoutes[route]||destinationPage(parts)) {
   root.innerHTML=futurePage(parts);
  } else {
