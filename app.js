@@ -7,6 +7,7 @@ import {brandSetupPage,mountBrandSetup} from './brand-setup.js?v=14';
 import {connectDataPage,mountConnectData} from './connect-data.js?v=9';
 import {analysisPage,mountAnalysis} from './analysis.js?v=4';
 import {issueDetailPage,approvalModalContent} from './issue-detail.js';
+import {issuesPage,mountIssues,issueEvidencePage} from './issues.js';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
@@ -19,7 +20,6 @@ let loginTransitionTimer;
 
 // หน้า Login, Dashboard, หน้ารายละเอียดปัญหา (กล่องบุบ) และหน้าอนุมัติพร้อมใช้งาน ส่วนหน้าอื่นเป็นจุดเชื่อมต่อรอพัฒนา
 const futureRoutes={
- issues:{title:'รายการปัญหา',page:6,owner:'ภูมิ',next:{href:'#/issues/packaging',label:'ไปหน้า 7 รายละเอียดปัญหา'}},
  comments:{title:'คอมเมนต์',page:9,owner:'หยุ่น',next:{href:'#/comments/1',label:'ไปหน้า 10 รายละเอียดคอมเมนต์'}},
  sales:{title:'ยอดขายและรีวิว',page:11,owner:'หยุ่น',next:{href:'#/sales/butter',label:'ไปหน้า 12 รายละเอียดสินค้า'}},
  festivals:{title:'ปฏิทินเทศกาล',page:13,owner:'เจด้า',next:{href:'#/festivals/11-11',label:'ไปหน้า 14 แผนคอนเทนต์ 11.11'}},
@@ -85,13 +85,18 @@ function render(){
   root.innerHTML=dashboard();
  } else if(route==='components') {
   root.innerHTML=componentGallery();
+ } else if(route==='issues'&&!subId) {
+  root.innerHTML=issuesPage();
+  cleanupPage=mountIssues(root);
  } else if(isPackagingIssue) {
-  root.innerHTML=issueDetailPage({status:isTracking?'tracking':'new'});
+  root.innerHTML=issueDetailPage('packaging',{tracking:isTracking});
   if(isApprove) {
    setTimeout(()=>{
     openDialog(approvalModalContent(),{label:'อนุมัติแนวทางแก้และส่งข้อความ',sheet:window.innerWidth<=650});
    },60);
   }
+ } else if(route==='issues'&&subId) {
+  root.innerHTML=issueEvidencePage(subId);
  } else if(futureRoutes[route]||destinationPage(parts)) {
   root.innerHTML=futurePage(parts);
  } else {
@@ -99,7 +104,7 @@ function render(){
  }
 
  const pageTitle=route==='login'?'เข้าสู่ระบบ':route==='brand-setup'?'ตั้งค่าแบรนด์':route==='connect-data'?'เชื่อมต่อข้อมูล':route==='analyzing'?'วิเคราะห์ข้อมูล':route==='today'?'สรุปวันนี้':route==='components'?'ชุดคอมโพเนนต์':isPackagingIssue?(isTracking?'ติดตามผล: กล่องบุบ (ผลจำลอง)':'รายละเอียดปัญหา: กล่องบุบ'):futureRoutes[route]?.title||'ไม่พบหน้า';
- document.title=pageTitle+' · BrandCare AI';
+ document.title=(route==='issues'&&!isPackagingIssue?'รายการปัญหา':pageTitle)+' · BrandCare AI';
 
  $$('.bc-nav-link').forEach(link=>{const active=link.getAttribute('href')==='#/'+route;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
  $$('.bc-bottom-link').forEach(link=>{const active=link.dataset.route===route;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
