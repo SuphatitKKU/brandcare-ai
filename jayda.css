@@ -5,3 +5,55 @@
 @media(prefers-reduced-motion:reduce){.jd-page *{scroll-behavior:auto!important;transition:none!important}}
 
 @media(max-width:650px){.jd-notification-info h2,.jd-notification-info>p{display:none}.jd-notification-info{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.jd-notification-info .jd-notice-tabs{margin:0}.jd-notification-info>.bc-button{font-size:10px;padding:9px 12px}.jd-notification-layout{gap:18px}.jd-phone{min-height:540px}}
+
+/* Review: usable touch targets, local chat history, and Settings preview. */
+.jd-page,.jd-page *,.jd-preview *{min-width:0;overflow-wrap:anywhere}
+.jd-post-reason{display:block;color:var(--bc-secondary);font-size:12px;line-height:1.8;margin-top:14px;padding-top:12px;border-top:1px solid var(--bc-line)}
+.jd-caption-text{white-space:pre-wrap}.jd-post-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.jd-post-actions button,.jd-chat-toolbar button,.jd-notice-tabs button,.jd-history-row button{min-height:44px}
+.jd-chat-toolbar{display:flex;gap:10px;justify-content:flex-end;margin-bottom:16px}
+.jd-ai-layout{grid-template-columns:280px minmax(0,1fr);gap:24px}
+.jd-ai-context{padding:20px;top:155px;max-height:calc(100dvh - 180px);overflow:auto}
+.jd-ai-context h2{font-size:18px;margin:0 0 10px}.jd-ai-context .jd-inline{justify-content:space-between}
+.jd-history-toggle{display:none}.jd-history-row{display:flex;border-bottom:1px solid var(--bc-line);align-items:center;margin-top:10px}
+.jd-history-row button{border:0;background:none;font:inherit;font-size:12px;text-align:left;cursor:pointer;padding:10px;border-radius:10px}
+.jd-history-row button:first-child{flex:1}.jd-history-row button[aria-current]{background:var(--bc-blue-soft);color:var(--bc-blue)}
+.jd-history-row button:last-child{flex-shrink:0;width:44px;height:44px;color:var(--bc-secondary)}
+.jd-history-row svg{width:16px;height:16px}.jd-chat{display:flex;flex-direction:column;height:clamp(540px,72dvh,850px)}
+#jd-conversation{overflow-y:auto;overscroll-behavior:contain;flex:1;min-height:180px;padding:8px 6px 16px;scrollbar-gutter:stable}
+.jd-question{max-width:82%;margin-bottom:18px;background:var(--bc-blue-soft)}
+.jd-ai-answer{max-width:94%;margin-right:auto;border-radius:6px 24px 24px 24px;box-shadow:none;border:1px solid var(--bc-line);padding:22px}
+.jd-ai-answer .jd-answer-text{white-space:pre-wrap;margin-top:18px}.jd-ai-answer>small{display:block;margin-top:14px;color:var(--bc-secondary)}
+.jd-chat-welcome{padding:35px 20px;text-align:center}.jd-chat-welcome h2{font-size:25px;margin-top:20px}.jd-chat-welcome p{font-size:13px;color:var(--bc-secondary)}
+.jd-chat .jd-suggestions{grid-template-columns:repeat(2,minmax(0,1fr));margin:12px 0;gap:8px}
+.jd-chat .jd-suggestions button{min-height:44px;font-size:12px;padding:10px 12px}
+.jd-ai-form{flex-shrink:0}.jd-ai-form [hidden]{display:none!important}.jd-ai-form button{min-height:44px}
+.jd-thinking{display:flex;gap:6px;padding:8px}.jd-thinking i{width:7px;height:7px;border-radius:50%;background:var(--bc-blue);animation:jd-think 1s infinite alternate}.jd-thinking i:nth-child(2){animation-delay:.2s}.jd-thinking i:nth-child(3){animation-delay:.4s}
+@keyframes jd-think{from{opacity:.3;transform:translateY(0)}to{opacity:1;transform:translateY(-4px)}}
+.jd-account-list{width:100%;display:grid;gap:6px}.jd-account{display:flex;align-items:center;gap:12px;padding:10px 0}.jd-account img{object-fit:contain;flex-shrink:0}.jd-account>div{flex:1}.jd-account strong{display:block;font-size:13px}.jd-account small{display:block;font-size:11px;color:var(--bc-secondary);margin-top:4px}.jd-account .bc-status{font-size:10px;flex-shrink:0}
+.jd-preview-dialog{width:540px}.jd-preview{max-width:420px;margin:auto}.jd-preview h2{padding-right:25px}.jd-preview .jd-notice-tabs{margin:12px 0 18px}
+.jd-preview .jd-phone{min-height:580px;border-radius:24px;background:#eef2f8}
+.jd-phone-status{display:flex;justify-content:space-between;padding:12px 22px 5px;background:white;font-size:11px;font-weight:600}
+.jd-preview .jd-phone>header{padding:12px 16px}.jd-preview .jd-chat-date{background:#e0e6ee;border-radius:20px;padding:5px 12px;margin:20px auto}
+.jd-notice-message{display:flex;align-items:flex-start;gap:8px;padding:0 12px}.jd-notice-message>.jd-ai-symbol{width:27px;height:27px;border-radius:10px}.jd-notice-message>.jd-ai-symbol svg{width:18px}.jd-notice-message>div{flex:1}.jd-notice-sender{font-size:10px;color:var(--bc-secondary);display:block;margin-bottom:5px}
+.jd-preview .jd-notice-bubble{margin:0;background:white;padding:16px;border-radius:5px 18px 18px 18px;box-shadow:0 2px 8px #1d1d1f06}
+.jd-preview .jd-notice-bubble h3{font-size:16px;margin:10px 0}.jd-preview .jd-notice-bubble p,.jd-preview .jd-notice-bubble li{font-size:12px;line-height:1.8}.jd-preview .jd-notice-bubble .bc-button{margin-top:14px;font-size:12px;min-height:44px;justify-content:center}
+.jd-preview .jd-notice-time{padding:0;margin:0;align-self:flex-end;font-size:9px;white-space:nowrap;color:var(--bc-secondary)}
+#jd-caption-form label{display:block;margin-bottom:10px}#jd-caption-error{font-size:13px;color:var(--bc-red,#b42318);margin-top:10px}
+.bc-dialog:has(#jd-caption-form) h2,.bc-dialog:has(#jd-confirm-check) h2{padding-right:36px}
+.bc-dialog:has(#jd-caption-form) .bc-button,.bc-dialog:has(#jd-confirm-check) .bc-button{min-height:44px}
+.jd-confirm{align-items:flex-start;padding:8px 0}.jd-confirm input{flex-shrink:0;width:22px;height:22px;margin-top:2px}
+@media(min-width:1200px){.jd-ai-layout{grid-template-columns:300px minmax(0,1fr)}.jd-chat{height:clamp(600px,73dvh,900px)}.jd-settings-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:651px) and (max-width:900px){.jd-ai-layout{grid-template-columns:220px minmax(0,1fr);gap:15px}.jd-ai-context{padding:16px}.jd-ai-answer{padding:18px;max-width:100%}.jd-chat .jd-suggestions{grid-template-columns:1fr}.jd-festival-grid{grid-template-columns:1fr}.jd-facts{gap:12px}.jd-facts .jd-pad{padding:0 18px 18px}.jd-facts .bc-card-head{padding:20px 18px}.jd-plan-top{flex-wrap:wrap}}
+@media(max-width:650px){
+ .jd-ai-layout{display:block}.jd-history-toggle{display:inline-flex}.jd-ai-context{display:none;position:static;max-height:45dvh;margin-bottom:16px}.jd-ai-context.is-open{display:block}.jd-ai-context>.jd-inline h2{font-size:18px;margin:0}.jd-chat-toolbar{justify-content:space-between;gap:8px}.jd-chat-toolbar .bc-button{font-size:12px;padding:10px}
+ .jd-ai-page .bc-intro{padding-top:16px;padding-bottom:16px}.jd-ai-page .bc-intro h1{font-size:30px}.jd-ai-page .bc-intro p{font-size:12px}.jd-chat{height:calc(100dvh - 280px);min-height:410px;max-height:850px}.jd-chat .jd-suggestions{grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}.jd-chat .jd-suggestions button{font-size:10px;padding:8px;line-height:1.5}.jd-chat .jd-suggestions svg{display:none}.jd-ai-answer{max-width:96%;padding:16px}.jd-question{max-width:90%}.jd-ai-form{padding:6px 6px 6px 12px;border-radius:15px}.jd-ai-footnote{font-size:10px}.jd-chat-welcome{padding:15px 5px}.jd-chat-welcome h2{font-size:21px}
+ .jd-post{padding:18px 14px;gap:10px}.jd-post-date{width:38px;min-height:55px}.jd-post-actions{gap:8px}.jd-post-actions .bc-button{font-size:12px;padding:10px 12px}.jd-post-reason{font-size:11px}.jd-facts .bc-card-head h2{font-size:17px}.jd-facts .jd-fact-number{font-size:25px}.jd-page .bc-section-heading h2{font-size:23px}.jd-page .bc-card-head{flex-wrap:wrap;gap:10px}.jd-page .bc-card-head>.bc-button{min-height:44px}.jd-account{gap:9px}.jd-account .bc-status{font-size:9px;padding:6px}.jd-account strong{font-size:12px}.jd-account small{font-size:10px}
+ .jd-preview-dialog{inset:0!important;margin:0!important;width:100%!important;max-width:100%!important;height:100dvh;max-height:100dvh!important;border-radius:0!important;padding:40px 14px max(20px,env(safe-area-inset-bottom))!important}.jd-preview{max-width:420px}.jd-preview h2{font-size:26px}.jd-preview .jd-phone{min-height:560px;border-radius:18px}.jd-preview .jd-notice-tabs button{font-size:12px}.jd-notice-message{gap:6px;padding:0 9px}.jd-preview .jd-notice-bubble{padding:13px}.jd-preview .jd-notice-bubble h3{font-size:15px}
+ .bc-dialog:has(#jd-caption-form),.bc-dialog:has(#jd-confirm-check){max-height:94dvh!important;padding-top:40px!important}.bc-dialog:has(#jd-caption-form) .bc-dialog-actions,.bc-dialog:has(#jd-confirm-check) .bc-dialog-actions{display:grid;grid-template-columns:1fr}.bc-dialog:has(#jd-caption-form) h2,.bc-dialog:has(#jd-confirm-check) h2{font-size:25px}.bc-dialog:has(#jd-confirm-check) .jd-advice{padding:14px;margin:12px 0}
+}
+@media(prefers-reduced-motion:reduce){.jd-thinking i{animation:none}}
+.jd-preset-menu>summary{cursor:pointer;font-size:12px;min-height:44px;padding:12px 4px;color:var(--bc-secondary)}
+@media(min-width:651px){.jd-preset-menu{flex-shrink:0}.jd-preset-menu>summary{display:none}}
+@media(max-width:650px){.jd-ai-page .bc-intro p{display:none}.jd-chat{height:calc(100dvh - 280px);min-height:280px}#jd-conversation{min-height:90px}.jd-preset-menu{flex-shrink:0}.jd-chat .jd-ai-footnote{line-height:1.5;margin-top:5px}.jd-chat-toolbar{margin-bottom:10px}.jd-ai-form{position:sticky;bottom:calc(96px + env(safe-area-inset-bottom));z-index:5}.jd-ai-page .jd-ai-footnote:empty{display:none}}
+@media(min-width:651px){.jd-preview-dialog{inset:0;margin:auto;height:auto;max-height:calc(100dvh - 50px);border-radius:28px}}

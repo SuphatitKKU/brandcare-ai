@@ -470,3 +470,6 @@ input,textarea{caret-color:var(--bc-blue)}
  .bc-rec-order,.bc-rec-time{display:none}
  .bc-dialog{width:100%!important;padding:24px 18px!important}
 }
+
+/* The main issue page's inline actions also need to wrap at 320px. */
+@media(max-width:650px){.bc-issue-detail-page .bc-section-heading,.bc-issue-detail-page .bc-card-head{flex-wrap:wrap;gap:12px}.bc-issue-detail-page .bc-section-heading .bc-button,.bc-issue-detail-page .bc-card-head .bc-button{white-space:normal;text-align:center;min-height:44px}.bc-issue-detail-page .bc-bar-actions{display:flex;flex-wrap:wrap;min-width:0}.bc-issue-detail-page .bc-bar-actions .bc-button{min-width:0;white-space:normal;min-height:44px}}
