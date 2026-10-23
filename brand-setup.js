@@ -132,5 +132,3 @@ export function mountBrandSetup(root){
   nextStepTimer=setTimeout(()=>{if(!page.isConnected)return;location.hash=editing?'/settings':'/connect-data';},reducedMotion.matches?150:750);});
  return ()=>{clearTimeout(nextStepTimer);dropdownEvents.abort();cancelStream();reducedMotion.removeEventListener('change',onReducedMotion);};
 }
-
-export function connectionHandoff(){return `<div class="bc-setup-page">${setupHeader(2)}<section class="bc-setup-next"><span>${icon('link')}</span><h1>ต่อไป เชื่อมต่อช่องทางของร้าน</h1><p>ข้อมูลแบรนด์บันทึกในเบราว์เซอร์แล้ว<br>หน้าเชื่อมต่อข้อมูลจะพัฒนาเป็นขั้นตอนถัดไป</p><a class="bc-button bc-button--primary" href="#/brand-setup">กลับไปดูข้อมูลแบรนด์</a></section></div>`;}
