@@ -93,24 +93,24 @@ export function issueDetailPage(issueId='packaging', {tracking=false}={}){
     <div class="bc-chart-annotation" aria-hidden="true">
      14 ต.ค. เปลี่ยนเป็นขนส่ง B
     </div>
-    <svg viewBox="0 0 700 180" preserveAspectRatio="none" role="img" aria-label="กราฟแสดงคำบ่นเรื่องกล่องบุบพุ่งสูงขึ้นสอดคล้องกับยอดขายทองม้วนที่ลดลง">
-     <g class="bc-chart-grid">
-      <line x1="20" y1="30" x2="680" y2="30" vector-effect="non-scaling-stroke" />
-      <line x1="20" y1="80" x2="680" y2="80" vector-effect="non-scaling-stroke" />
-      <line x1="20" y1="130" x2="680" y2="130" vector-effect="non-scaling-stroke" />
+    <svg viewBox="0 0 840 220" role="img" aria-label="กราฟแสดงคำบ่นเรื่องกล่องบุบพุ่งสูงขึ้นสอดคล้องกับยอดขายทองม้วนที่ลดลง">
+     <g class="bc-chart-grid" stroke="#f0f0f4" stroke-width="1" stroke-dasharray="4 5">
+      <line x1="20" y1="35" x2="820" y2="35" />
+      <line x1="20" y1="95" x2="820" y2="95" />
+      <line x1="20" y1="155" x2="820" y2="155" />
      </g>
      <!-- จุดเปลี่ยน 14 ต.ค. -->
-     <line x1="240" y1="15" x2="240" y2="160" stroke="#0071e3" stroke-width="1.5" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>
+     <line x1="286" y1="20" x2="286" y2="195" stroke="#0071e3" stroke-width="1.5" stroke-dasharray="3 3"/>
      
      <!-- เส้นคำบ่น (สีแดง พุ่งขึ้น) -->
-     <path class="bc-chart-complaints" d="M30 145 C150 142 220 140 280 120 C360 90 480 50 670 35" fill="none" stroke="#ff3b30" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+     <path class="bc-chart-complaints" d="M30 175 C160 172 240 170 310 150 C420 115 580 65 810 40" fill="none" stroke="#ff3b30" stroke-width="2.6" stroke-linecap="round"/>
      <!-- เส้นยอดขายทองม้วน (สีทองม้วน ดิ่งลง) -->
-     <path class="bc-chart-butter-line" d="M30 45 C150 48 220 50 280 75 C360 110 480 135 670 142" fill="none" stroke="#d19471" stroke-width="2.6" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+     <path class="bc-chart-butter-line" d="M30 45 C160 48 240 50 310 75 C420 120 580 155 810 168" fill="none" stroke="#d19471" stroke-width="2.4" stroke-linecap="round"/>
      
      <!-- จุดสำคัญ -->
-     <circle cx="280" cy="120" r="4.5" fill="white" stroke="#ff3b30" stroke-width="2"/>
-     <circle cx="670" cy="35" r="5" fill="#ff3b30"/>
-     <circle cx="670" cy="142" r="5" fill="#d19471"/>
+     <circle cx="310" cy="150" r="4.5" fill="white" stroke="#ff3b30" stroke-width="2"/>
+     <circle cx="810" cy="40" r="4.5" fill="#ff3b30"/>
+     <circle cx="810" cy="168" r="4.5" fill="#d19471"/>
     </svg>
     <div class="bc-chart-timeline-labels">
      <span>สัปดาห์ก่อน (7–13 ต.ค.)<br><strong>คำบ่นปกติ ~5 ข้อความ</strong><small>ยอดทองม้วน ฿32,400</small></span>
