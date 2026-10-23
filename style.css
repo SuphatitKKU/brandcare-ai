@@ -1,11 +1,9 @@
 @import url("./shared/components.css");
 @import url("./shared/brandcare.css");
-@import url("./login.css?v=2");
-@import url("./brand-setup.css?v=15");
-
+@import url("./login.css?v=3");
+@import url("./brand-setup.css?v=16");
 @import url("./connect-data.css?v=10");
-
-@import url("./analysis.css?v=5");
+@import url("./analysis.css?v=6");
 @import url("./issues.css?v=1");
 @import url("./jayda.css?v=33");
 
