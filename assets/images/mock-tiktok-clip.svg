@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1120" role="img" aria-labelledby="title desc">
+  <title id="title">ภาพจำลองคลิปรีวิวกล่องขนม</title>
+  <desc id="desc">ภาพประกอบกล่องขนมและปุ่มเล่นสำหรับคลิปจำลอง</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#303238"/><stop offset="1" stop-color="#77716b"/></linearGradient></defs>
+  <rect width="900" height="1120" rx="34" fill="url(#bg)"/>
+  <circle cx="450" cy="462" r="257" fill="#e6d7c2" opacity=".18"/>
+  <ellipse cx="455" cy="855" rx="285" ry="42" fill="#151619" opacity=".32"/>
+  <path d="m223 487 206-103 247 88-211 116z" fill="#edc69c"/>
+  <path d="m223 487 242 101v200L223 696z" fill="#bd8552"/>
+  <path d="m465 588 211-116v202L465 788z" fill="#a96f42"/>
+  <path d="m223 487 80-98 214 87-52 112z" fill="#d59f68"/>
+  <path d="m465 588 52-112 163-85 72 91z" fill="#e0b17f"/>
+  <g fill="#e8b65f" stroke="#bd8037" stroke-width="8">
+    <rect x="540" y="604" width="42" height="108" rx="21" transform="rotate(-15 540 604)"/>
+    <rect x="588" y="591" width="42" height="108" rx="21" transform="rotate(-15 588 591)"/>
+  </g>
+  <circle cx="450" cy="447" r="67" fill="#fff" opacity=".88"/>
+  <path d="m432 410 59 37-59 37z" fill="#363535"/>
+  <text x="54" y="83" fill="#fff" font-family="Arial,sans-serif" font-size="25" letter-spacing="4" opacity=".8">คลิปตัวอย่างจำลอง</text>
+  <text x="55" y="1043" fill="#fff" font-family="Arial,sans-serif" font-size="24" opacity=".85">ภาพประกอบ · ไม่ใช่คลิปจริง</text>
+</svg>
