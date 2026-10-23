@@ -4,8 +4,8 @@ import {dashboard,intro} from './dashboard.js';
 import {componentGallery} from './components.js';
 import {commentsPage,setupComments,relatedIssueSummaryPage,showCommentDetail,resetCommentDetailDialog,handleCommentAction} from './comments.js?v=4';
 import {loginPage,googleAccountChooser} from './login.js';
-import {brandSetupPage,mountBrandSetup} from './brand-setup.js?v=14';
-import {connectDataPage,mountConnectData} from './connect-data.js?v=10';
+import {brandSetupPage,mountBrandSetup} from './brand-setup.js?v=15';
+import {connectDataPage,mountConnectData} from './connect-data.js?v=11';
 import {analysisPage,mountAnalysis} from './analysis.js?v=4';
 import {salesPage,aiSalesPage,salesReviewDetailPage,productDetailPage} from './sales.js?v=15';
 import {issueDetailPage,approvalModalContent} from './issue-detail.js';
@@ -230,7 +230,7 @@ document.addEventListener('click',event=>{
  if(action==='search')openSearch();
  if(action==='notifications'){const el=$('#bc-notifications');el.hidden=!el.hidden;$('.bc-notification-trigger').setAttribute('aria-expanded',String(!el.hidden));}
  if(action==='close-notifications')closeNotifications();
- if(action==='profile'){closeNotifications();openDialog(`<h2>${brand.name}</h2><p class="bc-dialog-description">${brand.location} · ขายออนไลน์ตั้งแต่ปี 2022</p><div class="bc-detail-row"><span>เจ้าของร้าน</span><strong>${brand.owner}</strong></div><div class="bc-detail-row"><span>น้ำเสียงของแบรนด์</span><strong>${brand.tone}</strong></div><div class="bc-detail-row"><span>คอมเมนต์ที่ AI อ่านในตัวอย่าง</span><strong>1,284 รายการ</strong></div><p class="bc-dialog-description">ร้านและผู้ใช้เป็นข้อมูลสมมติตามแผน ข้อมูลอ้างอิงทั้งหมดอยู่ในไฟล์กลาง</p><div class="bc-dialog-actions">${button('ออกจากระบบ',{href:'#/login',variant:'danger'})}${button('ไปตั้งค่า',{href:'#/settings',variant:'soft'})}${button('ปิด',{action:'close-dialog',variant:'secondary'})}</div>`,{label:'ข้อมูลร้านขนมบ้านสวน'});}
+ if(action==='profile'){closeNotifications();openDialog(`<h2>${brand.name}</h2><p class="bc-dialog-description">${brand.location} · ขายออนไลน์ตั้งแต่ปี 2022</p><div class="bc-detail-row"><span>เจ้าของร้าน</span><strong>${brand.owner}</strong></div><div class="bc-detail-row"><span>น้ำเสียงของแบรนด์</span><strong>${brand.tone}</strong></div><div class="bc-detail-row"><span>คอมเมนต์ที่ AI อ่านในตัวอย่าง</span><strong>1,284 รายการ</strong></div><p class="bc-dialog-description">ร้านและผู้ใช้เป็นข้อมูลสมมติตามแผน ข้อมูลอ้างอิงทั้งหมดอยู่ในไฟล์กลาง</p><div class="bc-dialog-actions">${button('ออกจากระบบ',{href:'#/login',variant:'danger'})}${button('แก้ไขโปรไฟล์',{href:'#/brand-setup?from=settings',variant:'soft'})}${button('ไปตั้งค่า',{href:'#/settings',variant:'secondary'})}</div>`,{label:'ข้อมูลร้านขนมบ้านสวน'});}
  if(action==='login-use-email'){closeDialog();$('#bc-login-address').focus();}
   if(action==='close-dialog')closeActiveDialog();
  if(action==='open-approval'){

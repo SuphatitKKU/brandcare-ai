@@ -1,6 +1,6 @@
 import {brand,metrics} from './shared/data.js';
 import {icon,escapeHTML as esc,toast,shopLogo} from './shared/ui.js';
-import {setupHeader} from './brand-setup.js?v=14';
+import {setupHeader} from './brand-setup.js?v=15';
 
 // These milestones follow page 4 in MOCKUP-PAGES.md and the three dashboard tasks.
 const stages=[
