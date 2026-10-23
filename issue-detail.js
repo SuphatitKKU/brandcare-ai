@@ -90,20 +90,22 @@ export function issueDetailPage(issueId='packaging', {tracking=false}={}){
     </div>
    </div>
    <div class="bc-dual-chart-body">
+    <div class="bc-chart-annotation" aria-hidden="true">
+     14 ต.ค. เปลี่ยนเป็นขนส่ง B
+    </div>
     <svg viewBox="0 0 700 180" preserveAspectRatio="none" role="img" aria-label="กราฟแสดงคำบ่นเรื่องกล่องบุบพุ่งสูงขึ้นสอดคล้องกับยอดขายทองม้วนที่ลดลง">
      <g class="bc-chart-grid">
-      <line x1="20" y1="30" x2="680" y2="30" />
-      <line x1="20" y1="80" x2="680" y2="80" />
-      <line x1="20" y1="130" x2="680" y2="130" />
+      <line x1="20" y1="30" x2="680" y2="30" vector-effect="non-scaling-stroke" />
+      <line x1="20" y1="80" x2="680" y2="80" vector-effect="non-scaling-stroke" />
+      <line x1="20" y1="130" x2="680" y2="130" vector-effect="non-scaling-stroke" />
      </g>
      <!-- จุดเปลี่ยน 14 ต.ค. -->
-     <line x1="240" y1="15" x2="240" y2="160" stroke="#0071e3" stroke-width="1.5" stroke-dasharray="3 3"/>
-     <text x="246" y="24" fill="#0071e3" font-size="11" font-weight="600">14 ต.ค. เปลี่ยนเป็นขนส่ง B</text>
+     <line x1="240" y1="15" x2="240" y2="160" stroke="#0071e3" stroke-width="1.5" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>
      
      <!-- เส้นคำบ่น (สีแดง พุ่งขึ้น) -->
-     <path class="bc-chart-complaints" d="M30 145 C150 142 220 140 280 120 C360 90 480 50 670 35" fill="none" stroke="#ff3b30" stroke-width="3" stroke-linecap="round"/>
+     <path class="bc-chart-complaints" d="M30 145 C150 142 220 140 280 120 C360 90 480 50 670 35" fill="none" stroke="#ff3b30" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
      <!-- เส้นยอดขายทองม้วน (สีทองม้วน ดิ่งลง) -->
-     <path class="bc-chart-butter-line" d="M30 45 C150 48 220 50 280 75 C360 110 480 135 670 142" fill="none" stroke="#d19471" stroke-width="2.6" stroke-linecap="round"/>
+     <path class="bc-chart-butter-line" d="M30 45 C150 48 220 50 280 75 C360 110 480 135 670 142" fill="none" stroke="#d19471" stroke-width="2.6" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
      
      <!-- จุดสำคัญ -->
      <circle cx="280" cy="120" r="4.5" fill="white" stroke="#ff3b30" stroke-width="2"/>
