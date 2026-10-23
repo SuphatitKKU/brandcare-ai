@@ -4,18 +4,18 @@ export const metrics = Object.freeze({complaints:23,complaintGrowth:340,previous
 export const categories = Object.freeze({urgent:{label:'ต้องตอบด่วน',icon:'flame',color:'red'},drama:{label:'เสี่ยงดราม่า',icon:'alert',color:'maroon'},idea:{label:'ไอเดียสินค้า',icon:'bulb',color:'blue'},praise:{label:'คำชม',icon:'star',color:'gold'},intent:{label:'อยากซื้อ',icon:'target',color:'green'},competitor:{label:'พูดถึงคู่แข่ง',icon:'eye',color:'pink'}});
 export const platforms = Object.freeze({shopee:{name:'Shopee',letter:'S',className:'shopee'},tiktok:{name:'TikTok',letter:'♪',className:'tiktok'},facebook:{name:'Facebook',letter:'f',className:'facebook'},instagram:{name:'Instagram',letter:'◎',className:'instagram'},youtube:{name:'YouTube',letter:'▶',className:'youtube'}});
 export const comments = Object.freeze([
- {id:1,platform:'shopee',user:'ปุ๊ก***',text:'ทองม้วนแตกหมดเลยค่ะ กล่องบุบมาทั้งด้าน เสียดายมาก',category:'urgent',likes:12,time:'2 ชม.',topic:'แพ็กเกจ',issue:'packaging'},
- {id:2,platform:'tiktok',user:'@กินไปเรื่อยกับมิ้นท์',text:'กล่องยับมาก ข้างในแตกเป็นผง แต่รสชาติคือดีนะ',category:'drama',likes:'3.1k',time:'4 วัน',topic:'แพ็กเกจ',issue:'packaging',video:true},
- {id:3,platform:'shopee',user:'nat***',text:'สั่งครั้งที่ 3 ครั้งนี้แตกเกินครึ่ง จะสั่งอีกไหมเนี่ย',category:'urgent',likes:8,time:'5 ชม.',topic:'แพ็กเกจ',issue:'packaging'},
- {id:4,platform:'facebook',user:'สมศ***',text:'ส่งช้ากว่าเดิมมากค่ะ ปกติ 2 วันได้ ครั้งนี้ 5 วัน',category:'urgent',likes:4,time:'1 วัน',topic:'การจัดส่ง',issue:'delivery'},
- {id:5,platform:'tiktok',user:'jj***',text:'ซื้อที่ไหนคะ อยากลอง',category:'intent',likes:41,time:'3 วัน',topic:'ช่องทางซื้อ'},
- {id:6,platform:'instagram',user:'mew***',text:'ทำรสทุเรียนได้ไหมคะ จะซื้อเป็นของฝาก',category:'idea',likes:56,time:'6 วัน',topic:'สินค้าใหม่',issue:'durian'},
- {id:7,platform:'facebook',user:'ป้าแดง***',text:'กรอบ หอมเนย ไม่อมน้ำมัน ซื้อให้หลานกินทุกเดือน',category:'praise',likes:23,time:'1 วัน',topic:'รสชาติ'},
- {id:8,platform:'shopee',user:'bank***',text:'ของแม่ศรีกล่องดีกว่า ไม่เคยแตกเลย',category:'competitor',likes:6,time:'2 วัน',topic:'คู่แข่ง',issue:'packaging'},
- {id:9,platform:'youtube',user:'Kanok***',text:'ดูคลิปทำขนมแล้วอยากไปซื้อที่ร้านเลย มีหน้าร้านไหมครับ',category:'intent',likes:9,time:'3 วัน',topic:'ช่องทางซื้อ'},
- {id:10,platform:'shopee',user:'fon***',text:'รสชาติดีเหมือนเดิม แต่แพ็กเกจแย่ลง',category:'urgent',likes:5,time:'8 ชม.',topic:'แพ็กเกจ',issue:'packaging'},
- {id:11,platform:'instagram',user:'lin***',text:'ชุดของขวัญน่ารักมาก ปีใหม่จะสั่ง 10 กล่อง',category:'praise',likes:18,time:'5 วัน',topic:'ชุดของขวัญ'},
- {id:12,platform:'facebook',user:'ต่อ***',text:'กล้วยตากหวานไปนิดนึงครับ',category:'idea',likes:2,time:'9 วัน',topic:'รสชาติ',issue:'sweet'}
+ {id:1,platform:'shopee',user:'ปุ๊ก***',text:'ทองม้วนแตกหมดเลยค่ะ กล่องบุบมาทั้งด้าน เสียดายมาก',category:'urgent',likes:12,likesCount:12,ageHours:2,productId:'butter',time:'2 ชม.',topic:'แพ็กเกจ',issue:'packaging'},
+ {id:2,platform:'tiktok',user:'@กินไปเรื่อยกับมิ้นท์',text:'กล่องยับมาก ข้างในแตกเป็นผง แต่รสชาติคือดีนะ',category:'drama',likes:'3.1k',likesCount:3100,ageHours:96,productId:'butter',time:'4 วัน',topic:'แพ็กเกจ',issue:'packaging',video:true},
+ {id:3,platform:'shopee',user:'nat***',text:'สั่งครั้งที่ 3 ครั้งนี้แตกเกินครึ่ง จะสั่งอีกไหมเนี่ย',category:'urgent',likes:8,likesCount:8,ageHours:5,productId:'butter',time:'5 ชม.',topic:'แพ็กเกจ',issue:'packaging'},
+ {id:4,platform:'facebook',user:'สมศ***',text:'ส่งช้ากว่าเดิมมากค่ะ ปกติ 2 วันได้ ครั้งนี้ 5 วัน',category:'urgent',likes:4,likesCount:4,ageHours:24,productId:null,time:'1 วัน',topic:'การจัดส่ง',issue:'delivery'},
+ {id:5,platform:'tiktok',user:'jj***',text:'ซื้อที่ไหนคะ อยากลอง',category:'intent',likes:41,likesCount:41,ageHours:72,productId:null,time:'3 วัน',topic:'ช่องทางซื้อ'},
+ {id:6,platform:'instagram',user:'mew***',text:'ทำรสทุเรียนได้ไหมคะ จะซื้อเป็นของฝาก',category:'idea',likes:56,likesCount:56,ageHours:144,productId:null,time:'6 วัน',topic:'สินค้าใหม่',issue:'durian'},
+ {id:7,platform:'facebook',user:'ป้าแดง***',text:'กรอบ หอมเนย ไม่อมน้ำมัน ซื้อให้หลานกินทุกเดือน',category:'praise',likes:23,likesCount:23,ageHours:24,productId:'butter',time:'1 วัน',topic:'รสชาติ'},
+ {id:8,platform:'shopee',user:'bank***',text:'ของแม่ศรีกล่องดีกว่า ไม่เคยแตกเลย',category:'competitor',likes:6,likesCount:6,ageHours:48,productId:null,time:'2 วัน',topic:'คู่แข่ง',issue:'packaging'},
+ {id:9,platform:'youtube',user:'Kanok***',text:'ดูคลิปทำขนมแล้วอยากไปซื้อที่ร้านเลย มีหน้าร้านไหมครับ',category:'intent',likes:9,likesCount:9,ageHours:72,productId:null,time:'3 วัน',topic:'ช่องทางซื้อ'},
+ {id:10,platform:'shopee',user:'fon***',text:'รสชาติดีเหมือนเดิม แต่แพ็กเกจแย่ลง',category:'urgent',likes:5,likesCount:5,ageHours:8,productId:'butter',time:'8 ชม.',topic:'แพ็กเกจ',issue:'packaging'},
+ {id:11,platform:'instagram',user:'lin***',text:'ชุดของขวัญน่ารักมาก ปีใหม่จะสั่ง 10 กล่อง',category:'praise',likes:18,likesCount:18,ageHours:120,productId:'gift',time:'5 วัน',topic:'ชุดของขวัญ'},
+ {id:12,platform:'facebook',user:'ต่อ***',text:'กล้วยตากหวานไปนิดนึงครับ',category:'idea',likes:2,likesCount:2,ageHours:216,productId:'banana',time:'9 วัน',topic:'รสชาติ',issue:'sweet'}
 ]);
 export const issues = Object.freeze([
  {id:'packaging',title:'กล่องบุบ ทองม้วนแตก',subtitle:'คำบ่นเพิ่มขึ้นหลังเปลี่ยนเจ้าขนส่ง',severity:'critical',count:23,period:'7 วัน',growth:'+340%',platforms:['shopee','tiktok','facebook'],start:'16 ต.ค. 2026',trend:[9,9,12,16,25,36,53]},
