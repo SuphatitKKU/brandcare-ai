@@ -98,7 +98,8 @@ function render(){
  const isApprove=parts[2]==='approve';
  const params=new URLSearchParams(queryString||'');
  const isTracking=params.get('status')==='tracking';
- const isPackagingIssue=route==='issues'&&subId==='packaging';
+ const knownIssueIds=['packaging','delivery','sweet','durian'];
+ const isIssueDetail=route==='issues'&&knownIssueIds.includes(subId);
 
  if(route==='login') {
   root.innerHTML=loginPage();
@@ -128,11 +129,11 @@ function render(){
  } else if(route==='issues'&&!subId) {
   root.innerHTML=issuesPage();
   cleanupPage=mountIssues(root);
- } else if(isPackagingIssue) {
-  root.innerHTML=issueDetailPage('packaging',{tracking:isTracking});
+ } else if(isIssueDetail) {
+  root.innerHTML=issueDetailPage(subId,{tracking:isTracking});
   if(isApprove) {
    setTimeout(()=>{
-    openDialog(approvalModalContent(),{label:'อนุมัติแนวทางแก้และส่งข้อความ',sheet:window.innerWidth<=650});
+    openDialog(approvalModalContent(subId),{label:'อนุมัติแนวทางแก้และส่งข้อความ',sheet:window.innerWidth<=650});
    },60);
   }
  } else if(route==='issues'&&subId) {
@@ -152,8 +153,14 @@ function render(){
   root.innerHTML=`<div class="bc-page">${intro('ไม่พบหน้าที่ต้องการ','เลือกเมนูด้านบนเพื่อกลับไปดูแลร้าน',{date:false})}${emptyState({title:'ลิงก์นี้ยังไม่มีในแผน',action:button('กลับสรุปวันนี้',{href:'#/today'})})}</div>`;
  }
 
- const pageTitle=route==='sales'&&subId?'รายละเอียดสินค้า':route==='comments'?(subId?(params.get('from')==='sales-review'?'รายละเอียดรีวิว':'รายละเอียดคอมเมนต์'):'คอมเมนต์'):route==='login'?'เข้าสู่ระบบ':route==='brand-setup'?'ตั้งค่าแบรนด์':route==='connect-data'?'เชื่อมต่อข้อมูล':route==='analyzing'?'วิเคราะห์ข้อมูล':route==='today'?'สรุปวันนี้':route==='components'?'ชุดคอมโพเนนต์':isPackagingIssue?(isTracking?'ติดตามผล: กล่องบุบ (ผลจำลอง)':'รายละเอียดปัญหา: กล่องบุบ'):futureRoutes[route]?.title||'ไม่พบหน้า';
- document.title=(route==='issues'&&!isPackagingIssue?'รายการปัญหา':pageTitle)+' · BrandCare AI';
+ let issueDetailTitle='';
+ if(isIssueDetail){
+  const issueObj=issues.find(i=>i.id===subId);
+  const prefix=isTracking?'ติดตามผล: ':(issueObj?.severity==='opportunity'?'รายละเอียดโอกาส: ':'รายละเอียดปัญหา: ');
+  issueDetailTitle=`${prefix}${issueObj?.title||subId}`;
+ }
+ const pageTitle=route==='sales'&&subId?'รายละเอียดสินค้า':route==='comments'?(subId?(params.get('from')==='sales-review'?'รายละเอียดรีวิว':'รายละเอียดคอมเมนต์'):'คอมเมนต์'):route==='login'?'เข้าสู่ระบบ':route==='brand-setup'?'ตั้งค่าแบรนด์':route==='connect-data'?'เชื่อมต่อข้อมูล':route==='analyzing'?'วิเคราะห์ข้อมูล':route==='today'?'สรุปวันนี้':route==='components'?'ชุดคอมโพเนนต์':isIssueDetail?issueDetailTitle:futureRoutes[route]?.title||'ไม่พบหน้า';
+ document.title=(route==='issues'&&!isIssueDetail?'รายการปัญหา':pageTitle)+' · BrandCare AI';
 
  $$('.bc-nav-link').forEach(link=>{const active=link.getAttribute('href')==='#/'+route;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
  $$('.bc-bottom-link').forEach(link=>{const active=link.dataset.route===route;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
@@ -162,10 +169,27 @@ function render(){
  if(route==='comments'&&!subId&&cameFromCommentDetail&&commentsListScrollY!==null){window.scrollTo({top:commentsListScrollY,behavior:'instant'});commentsListScrollY=null;}
  else window.scrollTo({top:0,behavior:'instant'});
  if(route==='today'){const values=$$('.bc-metric-number>strong');countTo(values[0],metrics.complaints);countTo(values[1],metrics.revenue,{prefix:'฿'});countTo(values[2],metrics.rating,{decimals:1});countTo($('[data-count]'),metrics.carrierShare);}
- if(isPackagingIssue){
-  const compVal=$('#issue-count-val');if(compVal)countTo(compVal,isTracking?4:23);
-  const revVal=$('#issue-rev-val');if(revVal)countTo(revVal,isTracking?28900:22000,{prefix:'฿'});
-  const rateVal=$('#issue-rate-val');if(rateVal)countTo(rateVal,isTracking?4.7:4.5,{decimals:1});
+ if(isIssueDetail){
+  const compVal=$('#issue-count-val');
+  const revVal=$('#issue-rev-val');
+  const rateVal=$('#issue-rate-val');
+  if(subId==='packaging'){
+   if(compVal)countTo(compVal,isTracking?4:23);
+   if(revVal)countTo(revVal,isTracking?28900:22000,{prefix:'฿'});
+   if(rateVal)countTo(rateVal,isTracking?4.7:4.5,{decimals:1});
+  } else if(subId==='delivery'){
+   if(compVal)countTo(compVal,isTracking?2:35);
+   if(revVal)countTo(revVal,isTracking?41200:36500,{prefix:'฿'});
+   if(rateVal)countTo(rateVal,isTracking?4.8:4.2,{decimals:1});
+  } else if(subId==='sweet'){
+   if(compVal)countTo(compVal,isTracking?1:8);
+   if(revVal)countTo(revVal,isTracking?15600:14200,{prefix:'฿'});
+   if(rateVal)countTo(rateVal,isTracking?4.9:4.3,{decimals:1});
+  } else if(subId==='durian'){
+   if(compVal)countTo(compVal,isTracking?48:15);
+   if(revVal)countTo(revVal,isTracking?18500:0,{prefix:'฿'});
+   if(rateVal)countTo(rateVal,isTracking?4.9:4.8,{decimals:1});
+  }
  }
  if(new URLSearchParams(location.search).get('menu')==='open'){
   setTimeout(()=>{
@@ -212,12 +236,18 @@ document.addEventListener('click',event=>{
  if(action==='open-approval'){
   closeNotifications();
   closeMobileMenu();
-  openDialog(approvalModalContent(),{label:'อนุมัติแนวทางแก้และส่งข้อความ',sheet:window.innerWidth<=650});
+  const currentSubId=location.hash.replace(/^#\/?/,'').split('?')[0].split('/')[1]||'packaging';
+  openDialog(approvalModalContent(currentSubId),{label:'อนุมัติแนวทางแก้และส่งข้อความ',sheet:window.innerWidth<=650});
  }
  if(action==='confirm-approval'){
   closeDialog();
-  toast('ส่งแล้ว 23 ข้อความ');
-  location.hash='#/issues/packaging?status=tracking';
+  const currentSubId=location.hash.replace(/^#\/?/,'').split('?')[0].split('/')[1]||'packaging';
+  const toastMsg=currentSubId==='delivery'?'ส่งแจ้งเตือนพัสดุแล้ว 35 ข้อความ':
+                 currentSubId==='sweet'?'บันทึกและส่งต่อสูตรใหม่ไปยังครัวแล้ว':
+                 currentSubId==='durian'?'อนุมัติแผนเปิดพรีออเดอร์ทุเรียนหมอนทองแล้ว':
+                 'ส่งแล้ว 23 ข้อความ';
+  toast(toastMsg);
+  location.hash=`#/issues/${currentSubId}?status=tracking`;
  }
  if(action==='demo-toast')toast('ตัวอย่างแจ้งเตือนสำเร็จ · ไม่มีการเปลี่ยนข้อมูลจริง');
  if(action==='demo-dialog')demoDialog();
