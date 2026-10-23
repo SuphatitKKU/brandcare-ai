@@ -8,6 +8,7 @@ import {connectDataPage,mountConnectData} from './connect-data.js?v=9';
 import {analysisPage,mountAnalysis} from './analysis.js?v=4';
 import {issueDetailPage,approvalModalContent} from './issue-detail.js';
 import {issuesPage,mountIssues,issueEvidencePage} from './issues.js';
+import {festivalsPage,festivalPlanPage,aiPage,linePage,settingsPage,mountJayda} from './jayda.js';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
@@ -18,7 +19,7 @@ let cleanupPage;
 let route='today';
 let loginTransitionTimer;
 
-// หน้า Login, Dashboard, หน้ารายละเอียดปัญหา (กล่องบุบ) และหน้าอนุมัติพร้อมใช้งาน ส่วนหน้าอื่นเป็นจุดเชื่อมต่อรอพัฒนา
+// หน้า 13–17 ใช้ shell ร่วมกันจาก shared/ui.js; หน้าที่ทีมยังไม่ส่งคงเป็นจุดเชื่อมต่อ
 const futureRoutes={
  comments:{title:'คอมเมนต์',page:9,owner:'หยุ่น',next:{href:'#/comments/1',label:'ไปหน้า 10 รายละเอียดคอมเมนต์'}},
  sales:{title:'ยอดขายและรีวิว',page:11,owner:'หยุ่น',next:{href:'#/sales/butter',label:'ไปหน้า 12 รายละเอียดสินค้า'}},
@@ -97,6 +98,9 @@ function render(){
   }
  } else if(route==='issues'&&subId) {
   root.innerHTML=issueEvidencePage(subId);
+ } else if(['festivals','ai','line','settings'].includes(route)) {
+  root.innerHTML=route==='festivals'?(subId?festivalPlanPage(subId):festivalsPage()):route==='ai'?aiPage():route==='line'?linePage():settingsPage();
+  cleanupPage=mountJayda(root,route,subId);
  } else if(futureRoutes[route]||destinationPage(parts)) {
   root.innerHTML=futurePage(parts);
  } else {
