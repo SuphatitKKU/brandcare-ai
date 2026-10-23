@@ -1,4 +1,4 @@
-https://github.com/user-attachments/assets/127d4968-ef8b-4e13-90c8-ed9eada09214
+https://github.com/user-attachments/assets/15a1b77e-30c2-4577-a57a-6ab81e45fabd
 
 *วิดีโอแนะนำ BrandCare AI · 1:45 นาที · กดเล่นพร้อมเสียง*
 
