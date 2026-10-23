@@ -40,6 +40,6 @@ All shop, customer, sales, review and generated-response records are fictional. 
 
 ## Audio
 
-The current edit uses three tracks in five independently editable cues: Origami for the playful opening (0–15s); Emergent for problem tension (14–40s); Discovery for the epic BrandCare reveal and Dashboard (38.5–66s); Origami for a softer data/review section (64.5–86s); Discovery for the uplifting finale (84.5–105s). Transitions overlap 1–1.5 seconds. All by Scott Buckley, CC BY 4.0. Each cue is trimmed, normalized and faded before composition gain. Exact excerpts and official sources are in MUSIC-CREDITS.md; reproduction script: make-story-score.py. Original procedural sound accents remain layered under the music. No voiceover.
+The current edit restores a single continuous 105-second edit of Origami by Scott Buckley (CC BY 4.0), using `brandcare-story-origami.wav` at gain 0.86. The source ending is crossfaded into the opening excerpt to resolve naturally within the film runtime. Original procedural motion accents remain layered at gain 0.75. Exact source excerpts, processing and attribution are in MUSIC-CREDITS.md. No voiceover.
 
 Website capture source: D:\token-free, main commit 774e0abc0686463dbdcb92e304eeca81cbbcc315 (23 October 2026). git pull --ff-only reported already up to date.
