@@ -1,3 +1,7 @@
+https://github.com/user-attachments/assets/127d4968-ef8b-4e13-90c8-ed9eada09214
+
+*วิดีโอแนะนำ BrandCare AI · 1:45 นาที · กดเล่นพร้อมเสียง*
+
 # BrandCare AI
 
 ผู้ช่วย AI สำหรับเจ้าของร้านออนไลน์ ที่เชื่อมเสียงลูกค้าเข้ากับข้อมูลยอดขาย และช่วยจัดลำดับเรื่องที่ควรดูแลในแต่ละวัน
@@ -75,3 +79,5 @@ npm run dev
 - [คู่มือคอมโพเนนต์กลาง](shared/README.md)
 - [บริบทและหลักการผลิตภัณฑ์](PRODUCT.md)
 - [หลักฐานปัญหาและแหล่งอ้างอิง](docs/research/problem-evidence.md)
+
+- [เครดิตเพลงและรายละเอียดวิดีโอ](docs/video/MUSIC-CREDITS.md)
