@@ -76,5 +76,3 @@ export function mountConnectData(root){
  const zone=find('.bc-connect-dropzone');zone.addEventListener('dragover',event=>{event.preventDefault();if(!importing)zone.classList.add('is-dragging');});zone.addEventListener('dragleave',()=>zone.classList.remove('is-dragging'));zone.addEventListener('drop',event=>{event.preventDefault();zone.classList.remove('is-dragging');if(event.dataTransfer.files.length!==1){fileError('กรุณาเลือกครั้งละ 1 ไฟล์');return;}importFile(event.dataTransfer.files[0]);});
  render();return ()=>{alive=false;clearTimeout(timer);if(dialog.open)dialog.close();};
 }
-
-export function analysisHandoff(){return `<div class="bc-setup-page">${setupHeader(3)}<section class="bc-setup-next"><span>${icon('sparkles')}</span><h1>พร้อมให้ผู้ช่วยรู้จักร้านของคุณแล้ว</h1><p>เลือกแหล่งข้อมูลเรียบร้อยแล้ว<br>ขั้นตอนวิเคราะห์จะพัฒนาต่อในหน้า 4</p><a class="bc-button bc-button--primary" href="#/connect-data">กลับไปดูข้อมูลที่เลือก</a></section></div>`;}
