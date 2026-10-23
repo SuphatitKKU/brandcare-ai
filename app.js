@@ -10,7 +10,7 @@ import {analysisPage,mountAnalysis} from './analysis.js?v=4';
 import {salesPage,aiSalesPage,salesReviewDetailPage,productDetailPage} from './sales.js?v=15';
 import {issueDetailPage,approvalModalContent} from './issue-detail.js';
 import {issuesPage,mountIssues,issueEvidencePage} from './issues.js';
-import {festivalsPage,festivalPlanPage,aiPage,linePage,settingsPage,mountJayda} from './jayda.js';
+import {festivalsPage,festivalPlanPage,aiPage,linePage,settingsPage,mountJayda} from './jayda.js?v=2';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
