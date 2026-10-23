@@ -20,8 +20,8 @@
 |---|---|---|---|---|
 | 1 | ยินดีต้อนรับ / Login | ภูมิ | เสร็จ / merged | [PR #2](https://github.com/SuphatitKKU/brandcare-ai/pull/2), [PR #3](https://github.com/SuphatitKKU/brandcare-ai/pull/3) · `#/login` |
 | 2 | ตั้งค่าแบรนด์ | ภูมิ | เสร็จ / merged | [PR #4](https://github.com/SuphatitKKU/brandcare-ai/pull/4) · `#/brand-setup` |
-| 3 | เชื่อมต่อข้อมูล | ภูมิ | กำลังทำ | `feat/phum-connect-data` · UI พร้อมตรวจ ยังไม่ merge |
-| 4 | กำลังวิเคราะห์ | ภูมิ | ยังไม่พัฒนา | ยังไม่มี flow วิเคราะห์ |
+| 3 | เชื่อมต่อข้อมูล | ภูมิ | เสร็จ / merged | [PR #8](https://github.com/SuphatitKKU/brandcare-ai/pull/8) · `#/connect-data` |
+| 4 | กำลังวิเคราะห์ | ภูมิ | จุดเชื่อมต่อ | `#/analyzing` · ยังไม่มี flow วิเคราะห์จริง |
 | 5 | สรุปวันนี้ | B (โอ๊ค) | เสร็จ / merged | `#/today` · ชุดตั้งต้น commit `ef31c7e` |
 | 6 | รายการปัญหา | ภูมิ | จุดเชื่อมต่อ | `#/issues` |
 | 7 | รายละเอียดปัญหา | B (โอ๊ค) | เสร็จ / merged | [PR #1](https://github.com/SuphatitKKU/brandcare-ai/pull/1) · `#/issues/packaging` |
@@ -172,7 +172,9 @@
 
 ## งานที่ 3 ของภูมิ — เชื่อมต่อข้อมูล
 
-**สถานะ: UI พร้อมตรวจ บน `feat/phum-connect-data` ยังไม่ merge**
+**สถานะ: เสร็จและ merge เข้า `main` แล้ว**
+
+หลักฐาน: [PR #8](https://github.com/SuphatitKKU/brandcare-ai/pull/8) · commit `cbf2b7b` · 23 ตุลาคม 2026 (Asia/Bangkok) · branch `feat/phum-connect-data`
 
 - `#/connect-data`: การ์ด Facebook Page, Instagram, YouTube, LINE Official Account, Shopee, TikTok Shop และ Lazada แบ่งกลุ่มโซเชียล / ร้านค้าออนไลน์ พร้อมไฟล์โลโก้แบรนด์ใน `assets/brands/`
 - เพิ่มขั้นตอนเข้าสู่ระบบตัวอย่างก่อนเลือกบัญชี: อีเมล / รหัสผ่าน readonly, ลูกตาแสดงรหัส, loading และยกเลิก โดยไม่รับหรือส่งรหัสผ่านจริง
@@ -187,7 +189,9 @@
 - Modal ล็อกอิน / เลือกบัญชีเลื่อนเข้าถึงปุ่มได้บนจอเล็กและแนวนอน; ยกเลิกแล้วไม่บันทึก และออกจากหน้าระหว่าง loading แล้วไม่เปิด modal ค้าง
 - ปรับบัญชีล็อกอินเป็น Facebook / Google / LINE / TikTok ตามช่องทาง, modal จอเตี้ยกระชับขึ้น, สรุปด้านข้างเลื่อนได้หากมีหลายแหล่งข้อมูล และข้อความ error ใช้สีเตือน
 - Smoke check หน้า Login, หน้า 2, หน้ารายละเอียดปัญหาของทีม และ Settings ผ่าน ไม่พบ console error / warning
-- ก่อน merge ยังต้อง commit, push, เปิด PR, rebase กับ main ล่าสุด, ตรวจซ้ำ และยืนยันสถานะ PR/checks ตามคู่มือ
+- ส่งผ่าน PR #8 ด้วย Rebase and merge หลังตรวจฐาน `origin/main` commit `86b0b40` ไม่มี conflict; เก็บ backup branch ในเครื่องแล้ว
+- ตรวจซ้ำหลัง rebase: syntax / CSV parser / diff ผ่าน และ flow ล็อกอิน → เลือกบัญชี → ยกเลิกบน viewport 390px ผ่าน ไม่มี console error
+- PR #8 ไม่ได้รายงาน checks และ repository ไม่มี CI workflow จึงใช้ผลตรวจในเครื่องประกอบการ merge
 - ข้อจำกัด: การเชื่อมบัญชีเป็น UI mockup ยังไม่มี OAuth, provider API, sync ข้อมูลจริง หรือ AI จริง; ทดสอบ viewport จำลอง ไม่ใช่อุปกรณ์จริง
 
 ## วิธีอัปเดตเอกสารนี้
