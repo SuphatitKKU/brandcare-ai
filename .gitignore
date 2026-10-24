@@ -11,6 +11,7 @@ Thumbs.db
 # Local dependencies and generated output
 node_modules/
 dist/
+.wrangler/
 coverage/
 *.zip
 

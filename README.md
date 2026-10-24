@@ -2,6 +2,10 @@ https://github.com/user-attachments/assets/15a1b77e-30c2-4577-a57a-6ab81e45fabd
 
 *วิดีโอแนะนำ BrandCare AI · 1:45 นาที · กดเล่นพร้อมเสียง*
 
+**[เปิดเดโม BrandCare AI](https://brandcare-ai.pages.dev/#/today)** · ใช้งานได้ทั้งคอมพิวเตอร์และมือถือ
+
+[![สแกน QR code เพื่อเปิดเดโม BrandCare AI](docs/images/demo-qr.png)](https://brandcare-ai.pages.dev/#/today)
+
 # BrandCare AI
 
 ผู้ช่วย AI สำหรับเจ้าของร้านออนไลน์ ที่เชื่อมเสียงลูกค้าเข้ากับข้อมูลยอดขาย และช่วยจัดลำดับเรื่องที่ควรดูแลในแต่ละวัน
@@ -81,3 +85,4 @@ npm run dev
 - [หลักฐานปัญหาและแหล่งอ้างอิง](docs/research/problem-evidence.md)
 
 - [เครดิตเพลงและรายละเอียดวิดีโอ](docs/video/MUSIC-CREDITS.md)
+- [วิธี build และ deploy บน Cloudflare Pages](docs/DEPLOYMENT.md)

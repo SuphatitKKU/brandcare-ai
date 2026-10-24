@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "python -m http.server 4174 --bind 127.0.0.1",
-    "start": "python -m http.server 4174 --bind 127.0.0.1"
+    "start": "python -m http.server 4174 --bind 127.0.0.1",
+    "build": "node scripts/build-site.mjs",
+    "deploy": "npm run build && npx --yes wrangler@4.152.0 pages deploy dist --project-name=brandcare-ai --branch=main"
   },
   "type": "module"
 }
